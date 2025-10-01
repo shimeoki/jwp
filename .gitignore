@@ -1,2 +1,6 @@
 # flake
 /.pre-commit-config.yaml
+
+# gradle
+.gradle
+build
