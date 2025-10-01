@@ -4,3 +4,9 @@
 # gradle
 .gradle
 build
+
+# jdtls
+.settings
+.classpath
+.project
+*.class
