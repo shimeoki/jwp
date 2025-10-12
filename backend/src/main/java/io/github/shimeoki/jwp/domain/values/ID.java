@@ -19,6 +19,11 @@ public class ID {
         return this.uuid.toString();
     }
 
+    @Override
+    public int hashCode() {
+        return this.uuid.hashCode();
+    }
+
     public static ID fromString(String value) {
         return new ID(UUID.fromString(value));
     }
