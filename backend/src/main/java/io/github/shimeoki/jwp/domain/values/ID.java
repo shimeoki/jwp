@@ -1,8 +1,9 @@
 package io.github.shimeoki.jwp.domain.values;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class ID {
+public class ID implements Serializable {
 
     private UUID uuid;
 
