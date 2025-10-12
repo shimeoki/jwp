@@ -4,22 +4,22 @@ import java.util.UUID;
 
 public class ID {
 
-    private String value;
+    private UUID uuid;
 
-    private ID(String value) {
-        this.value = value;
+    private ID(UUID uuid) {
+        this.uuid = uuid;
     }
 
     public ID() {
-        this(UUID.randomUUID().toString());
+        this(UUID.randomUUID());
     }
 
     @Override
     public String toString() {
-        return this.value;
+        return this.uuid.toString();
     }
 
     public static ID fromString(String value) {
-        return new ID(UUID.fromString(value).toString());
+        return new ID(UUID.fromString(value));
     }
 }
