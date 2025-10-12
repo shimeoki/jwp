@@ -10,7 +10,7 @@ import io.github.shimeoki.jwp.domain.values.Format;
 import io.github.shimeoki.jwp.domain.values.Hash;
 import io.github.shimeoki.jwp.domain.values.ID;
 
-public class Wallpaper {
+public final class Wallpaper {
 
     private final ID id;
     private final Date createdAt;
