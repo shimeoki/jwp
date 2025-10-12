@@ -1,3 +1,4 @@
+{ inputs, ... }:
 {
     perSystem =
         { pkgs, ... }:
@@ -5,11 +6,11 @@
             devShells.default = pkgs.mkShell {
                 packages = with pkgs; [
                     nushell
-                    gradle
+                    jdk25
                 ];
 
                 shellHook = ''
-                    exec nu
+                    exec nu --execute "alias gw = ${inputs.self}/gradlew"
                 '';
             };
         };
