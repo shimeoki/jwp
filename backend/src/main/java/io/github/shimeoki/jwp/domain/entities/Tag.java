@@ -35,7 +35,7 @@ public final class Tag {
     public void rename(final Name n) {
         this.name = Objects.requireNonNull(n);
         this.updatedAt = new Date();
-        validate();
+        this.validate();
     }
 
     private void validate() {
