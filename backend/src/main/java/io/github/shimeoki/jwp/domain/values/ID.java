@@ -26,6 +26,16 @@ public class ID implements Serializable, Comparable<ID> {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof ID)) {
+            return false;
+        }
+
+        ID id = (ID) o;
+        return this.uuid.equals(id.uuid);
+    }
+
+    @Override
     public int compareTo(ID other) {
         return this.uuid.compareTo(other.uuid);
     }
