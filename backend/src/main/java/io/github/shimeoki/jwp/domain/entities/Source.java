@@ -6,7 +6,7 @@ import java.util.Objects;
 import io.github.shimeoki.jwp.domain.values.ID;
 import io.github.shimeoki.jwp.domain.values.Name;
 
-public class Source {
+public final class Source {
 
     private final ID id;
     private final Date createdAt;
