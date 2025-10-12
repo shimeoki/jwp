@@ -3,7 +3,7 @@ package io.github.shimeoki.jwp.domain.values;
 import java.io.Serializable;
 import java.util.UUID;
 
-public class ID implements Serializable, Comparable<ID> {
+public final class ID implements Serializable, Comparable<ID> {
 
     private final UUID uuid;
 
