@@ -1,4 +1,4 @@
-package io.github.shimeoki.jwp.application.command.tags.delete;
+package io.github.shimeoki.jwp.application.commands.tagdelete;
 
 import java.util.Objects;
 
