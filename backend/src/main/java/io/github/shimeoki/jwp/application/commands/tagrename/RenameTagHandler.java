@@ -22,12 +22,12 @@ public class RenameTagHandler
     }
 
     @Override
-    public RenameTagResult handle(final RenameTagCommand command) {
-        final var before = new Name(command.before());
+    public RenameTagResult handle(final RenameTagCommand cmd) {
+        final var before = new Name(cmd.before());
         final var tag = this.tags.findByName(before).orElseThrow(
                 () -> new IllegalArgumentException("tag not found"));
 
-        final var after = new Name(command.after());
+        final var after = new Name(cmd.after());
         tag.rename(after);
 
         this.tags.findByName(after).ifPresent((existent) -> {

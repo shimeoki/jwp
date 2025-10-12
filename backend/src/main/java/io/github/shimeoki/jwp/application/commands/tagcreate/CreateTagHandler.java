@@ -17,14 +17,12 @@ public final class CreateTagHandler
     }
 
     @Override
-    public CreateTagResult handle(final CreateTagCommand command) {
-        final var name = new Name(command.name());
-
+    public CreateTagResult handle(final CreateTagCommand cmd) {
+        final var name = new Name(cmd.name());
         this.tags.findByName(name).orElseThrow(
                 () -> new IllegalArgumentException("tag already exists"));
 
         this.tags.save(new Tag(name));
-
         return new CreateTagResult();
     }
 }
