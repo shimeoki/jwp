@@ -5,9 +5,9 @@ import java.util.UUID;
 
 public class ID implements Serializable, Comparable<ID> {
 
-    private UUID uuid;
+    private final UUID uuid;
 
-    private ID(UUID uuid) {
+    private ID(final UUID uuid) {
         this.uuid = uuid;
     }
 
@@ -26,21 +26,21 @@ public class ID implements Serializable, Comparable<ID> {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (!(o instanceof ID)) {
             return false;
         }
 
-        ID id = (ID) o;
+        final ID id = (ID) o;
         return this.uuid.equals(id.uuid);
     }
 
     @Override
-    public int compareTo(ID other) {
+    public int compareTo(final ID other) {
         return this.uuid.compareTo(other.uuid);
     }
 
-    public static ID fromString(String value) {
+    public static ID fromString(final String value) {
         return new ID(UUID.fromString(value));
     }
 }
