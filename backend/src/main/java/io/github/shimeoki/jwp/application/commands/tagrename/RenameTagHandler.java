@@ -7,7 +7,7 @@ import io.github.shimeoki.jwp.domain.repositories.TagRepository;
 import io.github.shimeoki.jwp.domain.repositories.WallpaperRepository;
 import io.github.shimeoki.jwp.domain.values.Name;
 
-public class RenameTagHandler
+public final class RenameTagHandler
         implements CommandHandler<RenameTagCommand, RenameTagResult> {
 
     private final WallpaperRepository wallpapers;
