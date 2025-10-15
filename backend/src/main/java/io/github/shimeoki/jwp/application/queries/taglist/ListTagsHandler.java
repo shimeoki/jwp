@@ -11,12 +11,12 @@ public final class ListTagsHandler
 
     private final TagRepository tags;
 
-    public ListTagsHandler(TagRepository tags) {
+    public ListTagsHandler(final TagRepository tags) {
         this.tags = Objects.requireNonNull(tags);
     }
 
     @Override
-    public ListTagsResult handle(ListTagsQuery qry) {
+    public ListTagsResult handle(final ListTagsQuery qry) {
         return new ListTagsResult(
                 this.tags.findAll().map(Tag::getName).toArray(String[]::new));
     }
