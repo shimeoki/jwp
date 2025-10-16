@@ -86,11 +86,21 @@ public final class InMemoryDatabase {
     }
 
     public Tag getTagByID(final ID id) {
-        return tagsByID.get(id).clone();
+        final var tag = tagsByID.get(id);
+        if (tag == null) {
+            return null;
+        }
+
+        return tag.clone();
     }
 
     public Tag getTagByName(final Name n) {
-        return tagsByName.get(n).clone();
+        final var tag = tagsByName.get(n);
+        if (tag == null) {
+            return null;
+        }
+
+        return tag.clone();
     }
 
     public Collection<Tag> getAllTags() {
@@ -131,7 +141,12 @@ public final class InMemoryDatabase {
     }
 
     public Source getSourceByID(final ID id) {
-        return sourcesByID.get(id).clone();
+        final var source = sourcesByID.get(id);
+        if (source == null) {
+            return null;
+        }
+
+        return source.clone();
     }
 
     public Collection<Source> getAllSources() {
@@ -181,11 +196,21 @@ public final class InMemoryDatabase {
     }
 
     public Wallpaper getWallpaperByID(final ID id) {
-        return wallpapersByID.get(id).clone();
+        final var wallpaper = wallpapersByID.get(id);
+        if (wallpaper == null) {
+            return null;
+        }
+
+        return wallpaper.clone();
     }
 
     public Wallpaper getWallpaperByHash(final Hash h) {
-        return wallpapersByHash.get(h).clone();
+        final var wallpaper = wallpapersByHash.get(h);
+        if (wallpaper == null) {
+            return null;
+        }
+
+        return wallpaper.clone();
     }
 
     public Collection<Wallpaper> getAllWallpapers() {
