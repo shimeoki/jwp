@@ -1,4 +1,4 @@
-package io.github.shimeoki.jwp.application.commands.tagcreate;
+package io.github.shimeoki.jwp.application.actions.tagcreate;
 
 import java.util.Objects;
 

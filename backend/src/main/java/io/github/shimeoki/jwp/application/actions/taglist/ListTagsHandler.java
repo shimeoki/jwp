@@ -1,4 +1,4 @@
-package io.github.shimeoki.jwp.application.queries.taglist;
+package io.github.shimeoki.jwp.application.actions.taglist;
 
 import java.util.Objects;
 
