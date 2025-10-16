@@ -1,14 +1,14 @@
-package io.github.shimeoki.jwp.application.commands.tagrename;
+package io.github.shimeoki.jwp.application.actions.tagrename;
 
 import java.util.Objects;
 
-import io.github.shimeoki.jwp.application.CommandHandler;
+import io.github.shimeoki.jwp.application.Handler;
 import io.github.shimeoki.jwp.domain.repositories.TagRepository;
 import io.github.shimeoki.jwp.domain.repositories.WallpaperRepository;
 import io.github.shimeoki.jwp.domain.values.Name;
 
 public final class RenameTagHandler
-        implements CommandHandler<RenameTagCommand, RenameTagResult> {
+        implements Handler<RenameTagCommand, RenameTagResult> {
 
     private final WallpaperRepository wallpapers;
     private final TagRepository tags;

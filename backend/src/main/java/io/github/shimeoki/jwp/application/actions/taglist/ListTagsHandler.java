@@ -1,13 +1,13 @@
-package io.github.shimeoki.jwp.application.queries.taglist;
+package io.github.shimeoki.jwp.application.actions.taglist;
 
 import java.util.Objects;
 
-import io.github.shimeoki.jwp.application.QueryHandler;
+import io.github.shimeoki.jwp.application.Handler;
 import io.github.shimeoki.jwp.domain.entities.Tag;
 import io.github.shimeoki.jwp.domain.repositories.TagRepository;
 
 public final class ListTagsHandler
-        implements QueryHandler<ListTagsQuery, ListTagsResult> {
+        implements Handler<ListTagsQuery, ListTagsResult> {
 
     private final TagRepository tags;
 
