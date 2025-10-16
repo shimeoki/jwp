@@ -81,27 +81,27 @@ public final class Wallpaper implements Cloneable {
         }
     }
 
-    public ID getID() {
+    public ID id() {
         return id;
     }
 
-    public Format getFormat() {
+    public Format format() {
         return format;
     }
 
-    public Hash getHash() {
+    public Hash hash() {
         return hash;
     }
 
-    public Date getCreatedAt() {
+    public Date createdAt() {
         return createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public Date updatedAt() {
         return updatedAt;
     }
 
-    public Collection<Source> getSources() {
+    public Collection<Source> sources() {
         return sources.values();
     }
 
@@ -117,7 +117,7 @@ public final class Wallpaper implements Cloneable {
         return sources.get(id);
     }
 
-    public Collection<Tag> getTags() {
+    public Collection<Tag> tags() {
         return tags.values();
     }
 
@@ -136,12 +136,12 @@ public final class Wallpaper implements Cloneable {
     @Override
     public Wallpaper clone() {
         final var tags = new HashMap<ID, Tag>();
-        for (final var tag : getTags()) {
+        for (final var tag : tags()) {
             tags.put(tag.id(), tag.clone());
         }
 
         final var sources = new HashMap<ID, Source>();
-        for (final var source : getSources()) {
+        for (final var source : sources()) {
             sources.put(source.id(), source.clone());
         }
 
