@@ -2,12 +2,12 @@ package io.github.shimeoki.jwp.application.commands.tagdelete;
 
 import java.util.Objects;
 
-import io.github.shimeoki.jwp.application.CommandHandler;
+import io.github.shimeoki.jwp.application.Handler;
 import io.github.shimeoki.jwp.domain.repositories.TagRepository;
 import io.github.shimeoki.jwp.domain.values.Name;
 
 public final class DeleteTagHandler
-        implements CommandHandler<DeleteTagCommand, DeleteTagResult> {
+        implements Handler<DeleteTagCommand, DeleteTagResult> {
 
     private final TagRepository tags;
 

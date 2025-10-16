@@ -2,13 +2,13 @@ package io.github.shimeoki.jwp.application.commands.tagcreate;
 
 import java.util.Objects;
 
-import io.github.shimeoki.jwp.application.CommandHandler;
+import io.github.shimeoki.jwp.application.Handler;
 import io.github.shimeoki.jwp.domain.entities.Tag;
 import io.github.shimeoki.jwp.domain.repositories.TagRepository;
 import io.github.shimeoki.jwp.domain.values.Name;
 
 public final class CreateTagHandler
-        implements CommandHandler<CreateTagCommand, CreateTagResult> {
+        implements Handler<CreateTagCommand, CreateTagResult> {
 
     private final TagRepository tags;
 
