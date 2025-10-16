@@ -1,8 +1,8 @@
-package io.github.shimeoki.jwp.application.actions.taglist;
+package io.github.shimeoki.jwp.app.actions.taglist;
 
 import java.util.Objects;
 
-import io.github.shimeoki.jwp.application.Handler;
+import io.github.shimeoki.jwp.app.Handler;
 import io.github.shimeoki.jwp.domain.entities.Tag;
 import io.github.shimeoki.jwp.domain.repositories.TagRepository;
 

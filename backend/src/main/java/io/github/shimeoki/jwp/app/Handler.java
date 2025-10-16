@@ -1,4 +1,4 @@
-package io.github.shimeoki.jwp.application;
+package io.github.shimeoki.jwp.app;
 
 @FunctionalInterface
 public interface Handler<A, R> {
