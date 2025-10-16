@@ -6,7 +6,7 @@ import java.util.Objects;
 import io.github.shimeoki.jwp.domain.values.ID;
 import io.github.shimeoki.jwp.domain.values.Name;
 
-public final class Tag {
+public final class Tag implements Cloneable {
 
     private final ID id;
     private final Date createdAt;
@@ -58,5 +58,14 @@ public final class Tag {
 
     public Date getUpdatedAt() {
         return updatedAt;
+    }
+
+    @Override
+    public Tag clone() {
+        return new Tag(
+                this.id,
+                this.name,
+                this.createdAt,
+                this.updatedAt);
     }
 }

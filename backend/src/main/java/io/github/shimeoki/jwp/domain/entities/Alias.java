@@ -6,7 +6,7 @@ import java.util.Objects;
 import io.github.shimeoki.jwp.domain.values.ID;
 import io.github.shimeoki.jwp.domain.values.Name;
 
-public final class Alias {
+public final class Alias implements Cloneable {
 
     private final ID id;
     private final ID wallpaperID;
@@ -66,5 +66,15 @@ public final class Alias {
 
     public Date getUpdatedAt() {
         return updatedAt;
+    }
+
+    @Override
+    public Alias clone() {
+        return new Alias(
+                this.id,
+                this.wallpaperID,
+                this.name,
+                this.createdAt,
+                this.updatedAt);
     }
 }

@@ -10,7 +10,7 @@ import io.github.shimeoki.jwp.domain.values.Format;
 import io.github.shimeoki.jwp.domain.values.Hash;
 import io.github.shimeoki.jwp.domain.values.ID;
 
-public final class Wallpaper {
+public final class Wallpaper implements Cloneable {
 
     private final ID id;
     private final Date createdAt;
@@ -131,5 +131,27 @@ public final class Wallpaper {
 
     public Tag getTag(final ID id) {
         return this.tags.get(id);
+    }
+
+    @Override
+    public Wallpaper clone() {
+        final var tags = new HashMap<ID, Tag>();
+        for (final var tag : this.getTags()) {
+            tags.put(tag.getID(), tag.clone());
+        }
+
+        final var sources = new HashMap<ID, Source>();
+        for (final var source : this.getSources()) {
+            sources.put(source.getID(), source.clone());
+        }
+
+        return new Wallpaper(
+                this.id,
+                this.format,
+                this.hash,
+                sources,
+                tags,
+                createdAt,
+                updatedAt);
     }
 }

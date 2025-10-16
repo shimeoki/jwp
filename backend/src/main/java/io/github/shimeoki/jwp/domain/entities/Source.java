@@ -6,7 +6,7 @@ import java.util.Objects;
 import io.github.shimeoki.jwp.domain.values.ID;
 import io.github.shimeoki.jwp.domain.values.Name;
 
-public final class Source {
+public final class Source implements Cloneable {
 
     private final ID id;
     private final Date createdAt;
@@ -87,5 +87,15 @@ public final class Source {
 
     public Date getUpdatedAt() {
         return updatedAt;
+    }
+
+    @Override
+    public Source clone() {
+        return new Source(
+                this.id,
+                this.name,
+                this.link,
+                this.createdAt,
+                this.updatedAt);
     }
 }

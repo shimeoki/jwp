@@ -6,7 +6,7 @@ import java.util.Objects;
 import io.github.shimeoki.jwp.domain.values.ID;
 import io.github.shimeoki.jwp.domain.values.Status;
 
-public final class Queue {
+public final class Queue implements Cloneable {
 
     private final ID id;
     private final ID wallpaperID;
@@ -95,5 +95,16 @@ public final class Queue {
 
     public Date getUpdatedAt() {
         return updatedAt;
+    }
+
+    @Override
+    public Queue clone() {
+        return new Queue(
+                this.id,
+                this.wallpaperID,
+                this.status,
+                this.priority,
+                this.createdAt,
+                this.updatedAt);
     }
 }
