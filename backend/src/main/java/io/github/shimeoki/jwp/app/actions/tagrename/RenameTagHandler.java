@@ -1,8 +1,8 @@
-package io.github.shimeoki.jwp.application.actions.tagrename;
+package io.github.shimeoki.jwp.app.actions.tagrename;
 
 import java.util.Objects;
 
-import io.github.shimeoki.jwp.application.Handler;
+import io.github.shimeoki.jwp.app.Handler;
 import io.github.shimeoki.jwp.domain.repositories.TagRepository;
 import io.github.shimeoki.jwp.domain.repositories.WallpaperRepository;
 import io.github.shimeoki.jwp.domain.values.Name;

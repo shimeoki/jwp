@@ -1,4 +1,4 @@
-package io.github.shimeoki.jwp.application.actions.tagrename;
+package io.github.shimeoki.jwp.app.actions.tagrename;
 
 public record RenameTagCommand(String before, String after) {
 }

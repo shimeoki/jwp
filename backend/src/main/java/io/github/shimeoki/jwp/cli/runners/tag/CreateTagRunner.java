@@ -1,9 +1,9 @@
 package io.github.shimeoki.jwp.cli.runners.tag;
 
-import io.github.shimeoki.jwp.application.actions.tagcreate.CreateTagCommand;
-import io.github.shimeoki.jwp.application.actions.tagcreate.CreateTagHandler;
+import io.github.shimeoki.jwp.app.actions.tagcreate.CreateTagCommand;
+import io.github.shimeoki.jwp.app.actions.tagcreate.CreateTagHandler;
 import io.github.shimeoki.jwp.cli.Runner;
-import io.github.shimeoki.jwp.infrastructure.inmemory.InMemoryTagRepository;
+import io.github.shimeoki.jwp.infra.inmemory.InMemoryTagRepository;
 
 public final class CreateTagRunner implements Runner {
 
