@@ -16,7 +16,7 @@ import io.github.shimeoki.jwp.domain.values.Name;
 
 public final class InMemoryDatabase {
 
-    private static final InMemoryDatabase instance = new InMemoryDatabase();
+    private static InMemoryDatabase instance;
 
     private final Map<ID, Tag> tagsByID;
     private final Map<Name, Tag> tagsByName;
@@ -43,6 +43,10 @@ public final class InMemoryDatabase {
     }
 
     public static InMemoryDatabase getInstance() {
+        if (instance == null) {
+            instance = new InMemoryDatabase();
+        }
+
         return instance;
     }
 
