@@ -13,8 +13,8 @@ public final class InMemoryTagRepository implements TagRepository {
 
     private final InMemoryDatabase db;
 
-    public InMemoryTagRepository(final InMemoryDatabase db) {
-        this.db = Objects.requireNonNull(db);
+    public InMemoryTagRepository() {
+        this.db = InMemoryDatabase.getInstance();
     }
 
     @Override

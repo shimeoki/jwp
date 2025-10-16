@@ -16,6 +16,8 @@ import io.github.shimeoki.jwp.domain.values.Name;
 
 public final class InMemoryDatabase {
 
+    private static final InMemoryDatabase instance = new InMemoryDatabase();
+
     private final Map<ID, Tag> tagsByID;
     private final Map<Name, Tag> tagsByName;
 
@@ -27,7 +29,7 @@ public final class InMemoryDatabase {
     private final Map<ID, Set<ID>> tagWallpapers;
     private final Map<ID, Set<ID>> sourceWallpapers;
 
-    public InMemoryDatabase() {
+    private InMemoryDatabase() {
         this.tagsByID = new HashMap<>();
         this.tagsByName = new HashMap<>();
 
@@ -38,6 +40,10 @@ public final class InMemoryDatabase {
 
         this.tagWallpapers = new HashMap<>();
         this.sourceWallpapers = new HashMap<>();
+    }
+
+    public static InMemoryDatabase getInstance() {
+        return instance;
     }
 
     public void addTag(final Tag t) {

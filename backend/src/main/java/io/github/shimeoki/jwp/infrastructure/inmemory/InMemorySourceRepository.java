@@ -12,8 +12,8 @@ public final class InMemorySourceRepository implements SourceRepository {
 
     private final InMemoryDatabase db;
 
-    public InMemorySourceRepository(final InMemoryDatabase db) {
-        this.db = Objects.requireNonNull(db);
+    public InMemorySourceRepository() {
+        this.db = InMemoryDatabase.getInstance();
     }
 
     @Override
