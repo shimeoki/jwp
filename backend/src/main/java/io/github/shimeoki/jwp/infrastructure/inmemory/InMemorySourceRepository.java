@@ -23,12 +23,12 @@ public final class InMemorySourceRepository implements SourceRepository {
 
     @Override
     public void delete(final ID id) {
-        db.removeSource(id);
+        db.removeSource(Objects.requireNonNull(id));
     }
 
     @Override
     public Optional<Source> findByID(final ID id) {
-        return Optional.ofNullable(db.getSourceByID(id));
+        return Optional.ofNullable(db.getSourceByID(Objects.requireNonNull(id)));
     }
 
     @Override
