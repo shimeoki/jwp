@@ -31,7 +31,7 @@ public final class RenameTagHandler
         tag.rename(after);
 
         tags.findByName(after).ifPresent((existent) -> {
-            final var id = existent.getID();
+            final var id = existent.id();
             final var walls = wallpapers.findByTagID(id);
 
             walls.forEach((wall) -> {

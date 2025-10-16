@@ -122,7 +122,7 @@ public final class Wallpaper implements Cloneable {
     }
 
     public boolean addTag(final Tag t) {
-        return tags.putIfAbsent(t.getID(), t) == null;
+        return tags.putIfAbsent(t.id(), t) == null;
     }
 
     public boolean removeTag(final ID id) {
@@ -137,7 +137,7 @@ public final class Wallpaper implements Cloneable {
     public Wallpaper clone() {
         final var tags = new HashMap<ID, Tag>();
         for (final var tag : getTags()) {
-            tags.put(tag.getID(), tag.clone());
+            tags.put(tag.id(), tag.clone());
         }
 
         final var sources = new HashMap<ID, Source>();

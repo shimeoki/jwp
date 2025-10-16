@@ -48,15 +48,15 @@ public final class InMemoryDatabase {
 
     public void addTag(final Tag t) {
         final var cloned = t.clone();
-        final var id = t.getID();
+        final var id = t.id();
 
         final var stored = tagsByID.get(id);
         if (stored != null) {
-            tagsByName.remove(stored.getName());
+            tagsByName.remove(stored.name());
         }
 
         tagsByID.put(id, cloned);
-        tagsByName.put(t.getName(), cloned);
+        tagsByName.put(t.name(), cloned);
 
         var walls = tagWallpapers.get(id);
         if (walls == null) {
@@ -76,7 +76,7 @@ public final class InMemoryDatabase {
             wallpapersByID.get(wid).removeTag(id);
         }
 
-        tagsByName.remove(tagsByID.get(id).getName());
+        tagsByName.remove(tagsByID.get(id).name());
         tagsByID.remove(id);
         tagWallpapers.remove(id);
     }
@@ -196,7 +196,7 @@ public final class InMemoryDatabase {
     private void removeTags(final Wallpaper w) {
         final var id = w.getID();
         for (final var tag : w.getTags()) {
-            tagWallpapers.get(tag.getID()).remove(id);
+            tagWallpapers.get(tag.id()).remove(id);
         }
     }
 
@@ -211,7 +211,7 @@ public final class InMemoryDatabase {
 
         // add new relations
         for (final var tag : w.getTags()) {
-            final var tid = tag.getID();
+            final var tid = tag.id();
 
             final var t = tagsByID.get(tid);
             if (t == null) {

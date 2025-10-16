@@ -21,7 +21,7 @@ public final class DeleteTagHandler
         final var tag = tags.findByName(name).orElseThrow(
                 () -> new IllegalArgumentException(" tag not found"));
 
-        tags.delete(tag.getID());
+        tags.delete(tag.id());
         return new DeleteTagResult();
     }
 }
