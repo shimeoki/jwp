@@ -37,22 +37,22 @@ public final class Queue implements Cloneable {
         this.wallpaperID = Objects.requireNonNull(wallpaperID);
         this.createdAt = new Date();
 
-        this.setStatus(s);
-        this.setPriority(priority);
-        this.touch();
-        this.validate();
+        setStatus(s);
+        setPriority(priority);
+        touch();
+        validate();
     }
 
     public void updateStatus(final Status s) {
-        this.setStatus(s);
-        this.touch();
-        this.validate();
+        setStatus(s);
+        touch();
+        validate();
     }
 
     public void updatePriority(final int priority) {
-        this.setPriority(priority);
-        this.touch();
-        this.validate();
+        setPriority(priority);
+        touch();
+        validate();
     }
 
     private void setStatus(final Status s) {
@@ -64,11 +64,11 @@ public final class Queue implements Cloneable {
     }
 
     private void touch() {
-        this.updatedAt = new Date();
+        updatedAt = new Date();
     }
 
     private void validate() {
-        if (this.createdAt.after(this.updatedAt)) {
+        if (createdAt.after(updatedAt)) {
             throw new IllegalStateException("created is after updated");
         }
     }
@@ -99,12 +99,6 @@ public final class Queue implements Cloneable {
 
     @Override
     public Queue clone() {
-        return new Queue(
-                this.id,
-                this.wallpaperID,
-                this.status,
-                this.priority,
-                this.createdAt,
-                this.updatedAt);
+        return new Queue(id, wallpaperID, status, priority, createdAt, updatedAt);
     }
 }
