@@ -48,15 +48,15 @@ public final class InMemoryDatabase {
 
     public void addTag(final Tag t) {
         final var cloned = t.clone();
-        final var id = t.getID();
+        final var id = t.id();
 
         final var stored = tagsByID.get(id);
         if (stored != null) {
-            tagsByName.remove(stored.getName());
+            tagsByName.remove(stored.name());
         }
 
         tagsByID.put(id, cloned);
-        tagsByName.put(t.getName(), cloned);
+        tagsByName.put(t.name(), cloned);
 
         var walls = tagWallpapers.get(id);
         if (walls == null) {
@@ -76,7 +76,7 @@ public final class InMemoryDatabase {
             wallpapersByID.get(wid).removeTag(id);
         }
 
-        tagsByName.remove(tagsByID.get(id).getName());
+        tagsByName.remove(tagsByID.get(id).name());
         tagsByID.remove(id);
         tagWallpapers.remove(id);
     }
@@ -100,7 +100,7 @@ public final class InMemoryDatabase {
 
     public void addSource(final Source s) {
         final var cloned = s.clone();
-        final var id = s.getID();
+        final var id = s.id();
 
         sourcesByID.put(id, cloned);
 
@@ -143,23 +143,23 @@ public final class InMemoryDatabase {
         final var tags = new HashMap<ID, Tag>();
         final var sources = new HashMap<ID, Source>();
 
-        final var id = w.getID();
-        final var hash = w.getHash();
+        final var id = w.id();
+        final var hash = w.hash();
         final var wallpaper = new Wallpaper(
                 id,
-                w.getFormat(),
+                w.format(),
                 hash,
                 sources,
                 tags,
-                w.getCreatedAt(),
-                w.getUpdatedAt());
+                w.createdAt(),
+                w.updatedAt());
 
         joinTags(w, tags);
         joinSources(w, sources);
 
         final var stored = wallpapersByID.get(id);
         if (stored != null) {
-            wallpapersByHash.remove(stored.getHash());
+            wallpapersByHash.remove(stored.hash());
         }
 
         wallpapersByID.put(id, wallpaper);
@@ -173,7 +173,7 @@ public final class InMemoryDatabase {
         removeSources(wallpaper);
 
         wallpapersByID.remove(id);
-        wallpapersByHash.remove(wallpaper.getHash());
+        wallpapersByHash.remove(wallpaper.hash());
     }
 
     public Wallpaper getWallpaperByID(final ID id) {
@@ -194,14 +194,14 @@ public final class InMemoryDatabase {
     }
 
     private void removeTags(final Wallpaper w) {
-        final var id = w.getID();
-        for (final var tag : w.getTags()) {
-            tagWallpapers.get(tag.getID()).remove(id);
+        final var id = w.id();
+        for (final var tag : w.tags()) {
+            tagWallpapers.get(tag.id()).remove(id);
         }
     }
 
     private void joinTags(final Wallpaper w, final Map<ID, Tag> tags) {
-        final var id = w.getID();
+        final var id = w.id();
 
         // delete previous relations if present
         final var stored = wallpapersByID.get(id);
@@ -210,8 +210,8 @@ public final class InMemoryDatabase {
         }
 
         // add new relations
-        for (final var tag : w.getTags()) {
-            final var tid = tag.getID();
+        for (final var tag : w.tags()) {
+            final var tid = tag.id();
 
             final var t = tagsByID.get(tid);
             if (t == null) {
@@ -224,14 +224,14 @@ public final class InMemoryDatabase {
     }
 
     private void removeSources(final Wallpaper w) {
-        final var id = w.getID();
-        for (final var source : w.getSources()) {
-            sourceWallpapers.get(source.getID()).remove(id);
+        final var id = w.id();
+        for (final var source : w.sources()) {
+            sourceWallpapers.get(source.id()).remove(id);
         }
     }
 
     private void joinSources(final Wallpaper w, final Map<ID, Source> sources) {
-        final var id = w.getID();
+        final var id = w.id();
 
         // delete previous relations if present
         final var stored = wallpapersByID.get(id);
@@ -240,8 +240,8 @@ public final class InMemoryDatabase {
         }
 
         // add new relations
-        for (final var source : w.getSources()) {
-            final var sid = source.getID();
+        for (final var source : w.sources()) {
+            final var sid = source.id();
 
             final var s = sourcesByID.get(sid);
             if (s == null) {

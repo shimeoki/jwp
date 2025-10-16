@@ -48,23 +48,23 @@ public final class Alias implements Cloneable {
         }
     }
 
-    public ID getID() {
+    public ID id() {
         return id;
     }
 
-    public ID getWallpaperID() {
+    public ID wallpaperID() {
         return wallpaperID;
     }
 
-    public Date getCreatedAt() {
+    public Date createdAt() {
         return createdAt;
     }
 
-    public Name getName() {
+    public Name name() {
         return name;
     }
 
-    public Date getUpdatedAt() {
+    public Date updatedAt() {
         return updatedAt;
     }
 

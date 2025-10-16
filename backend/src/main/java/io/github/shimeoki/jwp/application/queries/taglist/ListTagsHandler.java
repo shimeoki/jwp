@@ -18,6 +18,6 @@ public final class ListTagsHandler
     @Override
     public ListTagsResult handle(final ListTagsQuery qry) {
         return new ListTagsResult(
-                tags.findAll().map(Tag::getName).toArray(String[]::new));
+                tags.findAll().map(Tag::name).toArray(String[]::new));
     }
 }

@@ -73,27 +73,27 @@ public final class Queue implements Cloneable {
         }
     }
 
-    public ID getID() {
+    public ID id() {
         return id;
     }
 
-    public ID getWallpaperID() {
+    public ID wallpaperID() {
         return wallpaperID;
     }
 
-    public Date getCreatedAt() {
+    public Date createdAt() {
         return createdAt;
     }
 
-    public Status getStatus() {
+    public Status status() {
         return status;
     }
 
-    public Integer getPriority() {
+    public Integer priority() {
         return priority;
     }
 
-    public Date getUpdatedAt() {
+    public Date updatedAt() {
         return updatedAt;
     }
 

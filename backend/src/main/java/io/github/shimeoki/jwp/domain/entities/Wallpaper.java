@@ -81,32 +81,32 @@ public final class Wallpaper implements Cloneable {
         }
     }
 
-    public ID getID() {
+    public ID id() {
         return id;
     }
 
-    public Format getFormat() {
+    public Format format() {
         return format;
     }
 
-    public Hash getHash() {
+    public Hash hash() {
         return hash;
     }
 
-    public Date getCreatedAt() {
+    public Date createdAt() {
         return createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public Date updatedAt() {
         return updatedAt;
     }
 
-    public Collection<Source> getSources() {
+    public Collection<Source> sources() {
         return sources.values();
     }
 
     public boolean addSource(final Source s) {
-        return sources.putIfAbsent(s.getID(), s) == null;
+        return sources.putIfAbsent(s.id(), s) == null;
     }
 
     public boolean removeSource(final ID id) {
@@ -117,12 +117,12 @@ public final class Wallpaper implements Cloneable {
         return sources.get(id);
     }
 
-    public Collection<Tag> getTags() {
+    public Collection<Tag> tags() {
         return tags.values();
     }
 
     public boolean addTag(final Tag t) {
-        return tags.putIfAbsent(t.getID(), t) == null;
+        return tags.putIfAbsent(t.id(), t) == null;
     }
 
     public boolean removeTag(final ID id) {
@@ -136,13 +136,13 @@ public final class Wallpaper implements Cloneable {
     @Override
     public Wallpaper clone() {
         final var tags = new HashMap<ID, Tag>();
-        for (final var tag : getTags()) {
-            tags.put(tag.getID(), tag.clone());
+        for (final var tag : tags()) {
+            tags.put(tag.id(), tag.clone());
         }
 
         final var sources = new HashMap<ID, Source>();
-        for (final var source : getSources()) {
-            sources.put(source.getID(), source.clone());
+        for (final var source : sources()) {
+            sources.put(source.id(), source.clone());
         }
 
         return new Wallpaper(id, format, hash, sources, tags, createdAt, updatedAt);
