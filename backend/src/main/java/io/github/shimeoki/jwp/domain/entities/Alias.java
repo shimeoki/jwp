@@ -33,17 +33,17 @@ public final class Alias implements Cloneable {
         this.id = new ID();
         this.wallpaperID = Objects.requireNonNull(wallpaperID);
         this.createdAt = new Date();
-        this.rename(n);
+        rename(n);
     }
 
     public void rename(final Name n) {
         this.name = Objects.requireNonNull(n);
         this.updatedAt = new Date();
-        this.validate();
+        validate();
     }
 
     private void validate() {
-        if (this.createdAt.after(this.updatedAt)) {
+        if (createdAt.after(updatedAt)) {
             throw new IllegalStateException("created is after updated");
         }
     }
@@ -70,11 +70,6 @@ public final class Alias implements Cloneable {
 
     @Override
     public Alias clone() {
-        return new Alias(
-                this.id,
-                this.wallpaperID,
-                this.name,
-                this.createdAt,
-                this.updatedAt);
+        return new Alias(id, wallpaperID, name, createdAt, updatedAt);
     }
 }
