@@ -18,10 +18,10 @@ public final class DeleteTagHandler
     @Override
     public DeleteTagResult handle(final DeleteTagCommand cmd) {
         final var name = new Name(cmd.name());
-        final var tag = this.tags.findByName(name).orElseThrow(
+        final var tag = tags.findByName(name).orElseThrow(
                 () -> new IllegalArgumentException(" tag not found"));
 
-        this.tags.delete(tag.getID());
+        tags.delete(tag.getID());
         return new DeleteTagResult();
     }
 }

@@ -19,10 +19,10 @@ public final class CreateTagHandler
     @Override
     public CreateTagResult handle(final CreateTagCommand cmd) {
         final var name = new Name(cmd.name());
-        this.tags.findByName(name).orElseThrow(
+        tags.findByName(name).orElseThrow(
                 () -> new IllegalArgumentException("tag already exists"));
 
-        this.tags.save(new Tag(name));
+        tags.save(new Tag(name));
         return new CreateTagResult();
     }
 }
