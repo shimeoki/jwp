@@ -1,7 +1,5 @@
 package io.github.shimeoki.jwp.cli.runners.tag;
 
-import java.util.Arrays;
-
 import io.github.shimeoki.jwp.application.actions.tagcreate.CreateTagCommand;
 import io.github.shimeoki.jwp.application.actions.tagcreate.CreateTagHandler;
 import io.github.shimeoki.jwp.cli.Runner;
@@ -11,8 +9,6 @@ public final class CreateTagRunner implements Runner {
 
     @Override
     public void run(final String[] args) {
-        System.out.println(Arrays.toString(args));
-
         if (args.length != 1) {
             throw new IllegalArgumentException("no name provided");
         }
