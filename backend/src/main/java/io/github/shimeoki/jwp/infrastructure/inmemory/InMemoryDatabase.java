@@ -1,9 +1,11 @@
 package io.github.shimeoki.jwp.infrastructure.inmemory;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import io.github.shimeoki.jwp.domain.entities.Source;
 import io.github.shimeoki.jwp.domain.entities.Tag;
@@ -81,6 +83,15 @@ public final class InMemoryDatabase {
         return this.tagsByName.get(n).clone();
     }
 
+    public Collection<Tag> getAllTags() {
+        return this.tagsByID.values().stream()
+                .map(Tag::clone).collect(Collectors.toList());
+    }
+
+    public int getTagCount() {
+        return this.tagsByID.size();
+    }
+
     public void addSource(final Source s) {
         final var cloned = s.clone();
         final var id = s.getID();
@@ -111,6 +122,15 @@ public final class InMemoryDatabase {
 
     public Source getSourceByID(final ID id) {
         return this.sourcesByID.get(id).clone();
+    }
+
+    public Collection<Source> getAllSources() {
+        return this.sourcesByID.values().stream()
+                .map(Source::clone).collect(Collectors.toList());
+    }
+
+    public int getSourceCount() {
+        return this.sourcesByID.size();
     }
 
     public void addWallpaper(final Wallpaper w) {
@@ -156,6 +176,15 @@ public final class InMemoryDatabase {
 
     public Wallpaper getWallpaperByHash(final Hash h) {
         return this.wallpapersByHash.get(h).clone();
+    }
+
+    public Collection<Wallpaper> getAllWallpapers() {
+        return this.wallpapersByID.values().stream()
+                .map(Wallpaper::clone).collect(Collectors.toList());
+    }
+
+    public int getWallpaperCount() {
+        return this.wallpapersByID.size();
     }
 
     private void removeTags(final Wallpaper w) {
