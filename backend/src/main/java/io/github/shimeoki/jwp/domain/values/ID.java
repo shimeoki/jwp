@@ -17,12 +17,12 @@ public final class ID implements Serializable, Comparable<ID> {
 
     @Override
     public String toString() {
-        return this.uuid.toString();
+        return uuid.toString();
     }
 
     @Override
     public int hashCode() {
-        return this.uuid.hashCode();
+        return uuid.hashCode();
     }
 
     @Override
@@ -32,12 +32,12 @@ public final class ID implements Serializable, Comparable<ID> {
         }
 
         final ID id = (ID) o;
-        return this.uuid.equals(id.uuid);
+        return uuid.equals(id.uuid);
     }
 
     @Override
     public int compareTo(final ID other) {
-        return this.uuid.compareTo(other.uuid);
+        return uuid.compareTo(other.uuid);
     }
 
     public static ID fromString(final String value) {
