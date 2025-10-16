@@ -24,6 +24,6 @@ public enum Format {
 
     @Override
     public String toString() {
-        return this.value;
+        return value;
     }
 }

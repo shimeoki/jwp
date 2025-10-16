@@ -14,39 +14,36 @@ public final class InMemoryTagRepository implements TagRepository {
     private final InMemoryDatabase db;
 
     public InMemoryTagRepository() {
-        this.db = InMemoryDatabase.getInstance();
+        db = InMemoryDatabase.getInstance();
     }
 
     @Override
     public void save(final Tag t) {
-        this.db.addTag(Objects.requireNonNull(t));
+        db.addTag(Objects.requireNonNull(t));
     }
 
     @Override
     public void delete(final ID id) {
-        this.db.removeTag(Objects.requireNonNull(id));
+        db.removeTag(Objects.requireNonNull(id));
     }
 
     @Override
     public Optional<Tag> findByID(final ID id) {
-        return Optional.ofNullable(
-                this.db.getTagByID(Objects.requireNonNull(id)));
+        return Optional.ofNullable(db.getTagByID(Objects.requireNonNull(id)));
     }
 
     @Override
     public Stream<Tag> findAll() {
-        return this.db.getAllTags().stream();
+        return db.getAllTags().stream();
     }
 
     @Override
     public long count() {
-        return this.db.getTagCount();
+        return db.getTagCount();
     }
 
     @Override
     public Optional<Tag> findByName(final Name n) {
-        return Optional.ofNullable(
-                this.db.getTagByName(Objects.requireNonNull(n)));
+        return Optional.ofNullable(db.getTagByName(Objects.requireNonNull(n)));
     }
-
 }

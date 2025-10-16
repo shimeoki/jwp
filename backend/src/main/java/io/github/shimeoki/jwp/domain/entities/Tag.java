@@ -27,19 +27,19 @@ public final class Tag implements Cloneable {
     }
 
     public Tag(final Name n) {
-        this.id = new ID();
-        this.createdAt = new Date();
-        this.rename(n);
+        id = new ID();
+        createdAt = new Date();
+        rename(n);
     }
 
     public void rename(final Name n) {
-        this.name = Objects.requireNonNull(n);
-        this.updatedAt = new Date();
-        this.validate();
+        name = Objects.requireNonNull(n);
+        updatedAt = new Date();
+        validate();
     }
 
     private void validate() {
-        if (this.createdAt.after(this.updatedAt)) {
+        if (createdAt.after(updatedAt)) {
             throw new IllegalStateException("created is after updated");
         }
     }
@@ -62,10 +62,6 @@ public final class Tag implements Cloneable {
 
     @Override
     public Tag clone() {
-        return new Tag(
-                this.id,
-                this.name,
-                this.createdAt,
-                this.updatedAt);
+        return new Tag(id, name, createdAt, updatedAt);
     }
 }

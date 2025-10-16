@@ -24,26 +24,26 @@ public final class RenameTagHandler
     @Override
     public RenameTagResult handle(final RenameTagCommand cmd) {
         final var before = new Name(cmd.before());
-        final var tag = this.tags.findByName(before).orElseThrow(
+        final var tag = tags.findByName(before).orElseThrow(
                 () -> new IllegalArgumentException("tag not found"));
 
         final var after = new Name(cmd.after());
         tag.rename(after);
 
-        this.tags.findByName(after).ifPresent((existent) -> {
+        tags.findByName(after).ifPresent((existent) -> {
             final var id = existent.getID();
-            final var walls = this.wallpapers.findByTagID(id);
+            final var walls = wallpapers.findByTagID(id);
 
             walls.forEach((wall) -> {
                 wall.removeTag(id);
                 wall.addTag(tag);
-                this.wallpapers.save(wall);
+                wallpapers.save(wall);
             });
 
-            this.tags.delete(id);
+            tags.delete(id);
         });
 
-        this.tags.save(tag);
+        tags.save(tag);
         return new RenameTagResult();
     }
 }

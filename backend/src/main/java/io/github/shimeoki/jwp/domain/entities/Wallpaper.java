@@ -40,43 +40,43 @@ public final class Wallpaper implements Cloneable {
     }
 
     public Wallpaper(final Format f, final Hash h) {
-        this.id = new ID();
-        this.createdAt = new Date();
-        this.sources = new HashMap<ID, Source>();
-        this.tags = new HashMap<ID, Tag>();
+        id = new ID();
+        createdAt = new Date();
+        sources = new HashMap<ID, Source>();
+        tags = new HashMap<ID, Tag>();
 
-        this.setHash(h);
-        this.setFormat(f);
-        this.touch();
-        this.validate();
+        setHash(h);
+        setFormat(f);
+        touch();
+        validate();
     }
 
     public void updateHash(final Hash h) {
-        this.setHash(h);
-        this.touch();
-        this.validate();
+        setHash(h);
+        touch();
+        validate();
     }
 
     public void updateFormat(final Format f) {
-        this.setFormat(f);
-        this.touch();
-        this.validate();
+        setFormat(f);
+        touch();
+        validate();
     }
 
     private void setHash(final Hash h) {
-        this.hash = Objects.requireNonNull(h);
+        hash = Objects.requireNonNull(h);
     }
 
     private void setFormat(final Format f) {
-        this.format = Objects.requireNonNull(f);
+        format = Objects.requireNonNull(f);
     }
 
     private void touch() {
-        this.updatedAt = new Date();
+        updatedAt = new Date();
     }
 
     private void validate() {
-        if (this.createdAt.after(this.updatedAt)) {
+        if (createdAt.after(updatedAt)) {
             throw new IllegalStateException("created is after updated");
         }
     }
@@ -102,56 +102,49 @@ public final class Wallpaper implements Cloneable {
     }
 
     public Collection<Source> getSources() {
-        return this.sources.values();
+        return sources.values();
     }
 
     public boolean addSource(final Source s) {
-        return this.sources.putIfAbsent(s.getID(), s) == null;
+        return sources.putIfAbsent(s.getID(), s) == null;
     }
 
     public boolean removeSource(final ID id) {
-        return this.sources.remove(id) != null;
+        return sources.remove(id) != null;
     }
 
     public Source getSource(final ID id) {
-        return this.sources.get(id);
+        return sources.get(id);
     }
 
     public Collection<Tag> getTags() {
-        return this.tags.values();
+        return tags.values();
     }
 
     public boolean addTag(final Tag t) {
-        return this.tags.putIfAbsent(t.getID(), t) == null;
+        return tags.putIfAbsent(t.getID(), t) == null;
     }
 
     public boolean removeTag(final ID id) {
-        return this.tags.remove(id) != null;
+        return tags.remove(id) != null;
     }
 
     public Tag getTag(final ID id) {
-        return this.tags.get(id);
+        return tags.get(id);
     }
 
     @Override
     public Wallpaper clone() {
         final var tags = new HashMap<ID, Tag>();
-        for (final var tag : this.getTags()) {
+        for (final var tag : getTags()) {
             tags.put(tag.getID(), tag.clone());
         }
 
         final var sources = new HashMap<ID, Source>();
-        for (final var source : this.getSources()) {
+        for (final var source : getSources()) {
             sources.put(source.getID(), source.clone());
         }
 
-        return new Wallpaper(
-                this.id,
-                this.format,
-                this.hash,
-                sources,
-                tags,
-                createdAt,
-                updatedAt);
+        return new Wallpaper(id, format, hash, sources, tags, createdAt, updatedAt);
     }
 }

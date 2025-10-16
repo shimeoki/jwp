@@ -13,32 +13,31 @@ public final class InMemorySourceRepository implements SourceRepository {
     private final InMemoryDatabase db;
 
     public InMemorySourceRepository() {
-        this.db = InMemoryDatabase.getInstance();
+        db = InMemoryDatabase.getInstance();
     }
 
     @Override
     public void save(final Source s) {
-        this.db.addSource(Objects.requireNonNull(s));
+        db.addSource(Objects.requireNonNull(s));
     }
 
     @Override
     public void delete(final ID id) {
-        this.db.removeSource(id);
+        db.removeSource(Objects.requireNonNull(id));
     }
 
     @Override
     public Optional<Source> findByID(final ID id) {
-        return Optional.ofNullable(this.db.getSourceByID(id));
+        return Optional.ofNullable(db.getSourceByID(Objects.requireNonNull(id)));
     }
 
     @Override
     public Stream<Source> findAll() {
-        return this.db.getAllSources().stream();
+        return db.getAllSources().stream();
     }
 
     @Override
     public long count() {
-        return this.db.getSourceCount();
+        return db.getSourceCount();
     }
-
 }

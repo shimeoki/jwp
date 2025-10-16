@@ -30,25 +30,25 @@ public final class Source implements Cloneable {
     }
 
     public Source(final Name n, final String link) {
-        this.id = new ID();
-        this.createdAt = new Date();
+        id = new ID();
+        createdAt = new Date();
 
-        this.setName(n);
-        this.setLink(link);
-        this.touch();
-        this.validate();
+        setName(n);
+        setLink(link);
+        touch();
+        validate();
     }
 
     public void rename(final Name n) {
-        this.setName(n);
-        this.touch();
-        this.validate();
+        setName(n);
+        touch();
+        validate();
     }
 
     public void updateLink(final String link) {
-        this.setLink(link);
-        this.touch();
-        this.validate();
+        setLink(link);
+        touch();
+        validate();
     }
 
     private void setName(final Name n) {
@@ -60,11 +60,11 @@ public final class Source implements Cloneable {
     }
 
     private void touch() {
-        this.updatedAt = new Date();
+        updatedAt = new Date();
     }
 
     private void validate() {
-        if (this.createdAt.after(this.updatedAt)) {
+        if (createdAt.after(updatedAt)) {
             throw new IllegalStateException("created is after updated");
         }
     }
@@ -91,11 +91,6 @@ public final class Source implements Cloneable {
 
     @Override
     public Source clone() {
-        return new Source(
-                this.id,
-                this.name,
-                this.link,
-                this.createdAt,
-                this.updatedAt);
+        return new Source(id, name, link, createdAt, updatedAt);
     }
 }
