@@ -19,8 +19,8 @@ public final class CreateTagHandler
     @Override
     public CreateTagResult handle(final CreateTagCommand cmd) {
         final var name = new Name(cmd.name());
-        tags.findByName(name).orElseThrow(
-                () -> new IllegalArgumentException("tag already exists"));
+        tags.findByName(name).ifPresent(
+                (_) -> new IllegalArgumentException("tag already exists"));
 
         tags.save(new Tag(name));
         return new CreateTagResult();
