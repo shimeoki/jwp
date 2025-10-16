@@ -19,7 +19,7 @@ public final class DeleteTagHandler
     public DeleteTagResult handle(final DeleteTagCommand cmd) {
         final var name = new Name(cmd.name());
         final var tag = tags.findByName(name).orElseThrow(
-                () -> new IllegalArgumentException(" tag not found"));
+                () -> new IllegalArgumentException("tag not found"));
 
         tags.delete(tag.id());
         return new DeleteTagResult();
