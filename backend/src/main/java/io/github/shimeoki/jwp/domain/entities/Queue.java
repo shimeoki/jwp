@@ -49,7 +49,7 @@ public final class Queue implements Cloneable {
         validate();
     }
 
-    public void updatePriority(final int priority) {
+    public void updatePriority(final Integer priority) {
         setPriority(priority);
         touch();
         validate();
