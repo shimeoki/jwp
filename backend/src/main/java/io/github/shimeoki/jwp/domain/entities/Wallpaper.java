@@ -106,7 +106,7 @@ public final class Wallpaper implements Cloneable {
     }
 
     public boolean addSource(final Source s) {
-        return sources.putIfAbsent(s.getID(), s) == null;
+        return sources.putIfAbsent(s.id(), s) == null;
     }
 
     public boolean removeSource(final ID id) {
@@ -142,7 +142,7 @@ public final class Wallpaper implements Cloneable {
 
         final var sources = new HashMap<ID, Source>();
         for (final var source : getSources()) {
-            sources.put(source.getID(), source.clone());
+            sources.put(source.id(), source.clone());
         }
 
         return new Wallpaper(id, format, hash, sources, tags, createdAt, updatedAt);

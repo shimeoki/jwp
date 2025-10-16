@@ -100,7 +100,7 @@ public final class InMemoryDatabase {
 
     public void addSource(final Source s) {
         final var cloned = s.clone();
-        final var id = s.getID();
+        final var id = s.id();
 
         sourcesByID.put(id, cloned);
 
@@ -226,7 +226,7 @@ public final class InMemoryDatabase {
     private void removeSources(final Wallpaper w) {
         final var id = w.getID();
         for (final var source : w.getSources()) {
-            sourceWallpapers.get(source.getID()).remove(id);
+            sourceWallpapers.get(source.id()).remove(id);
         }
     }
 
@@ -241,7 +241,7 @@ public final class InMemoryDatabase {
 
         // add new relations
         for (final var source : w.getSources()) {
-            final var sid = source.getID();
+            final var sid = source.id();
 
             final var s = sourcesByID.get(sid);
             if (s == null) {

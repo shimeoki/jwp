@@ -69,23 +69,23 @@ public final class Source implements Cloneable {
         }
     }
 
-    public ID getID() {
+    public ID id() {
         return id;
     }
 
-    public Date getCreatedAt() {
+    public Date createdAt() {
         return createdAt;
     }
 
-    public Name getName() {
+    public Name name() {
         return name;
     }
 
-    public String getLink() {
+    public String link() {
         return link;
     }
 
-    public Date getUpdatedAt() {
+    public Date updatedAt() {
         return updatedAt;
     }
 
