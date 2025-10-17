@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+// heavy inspiration from https://cobra.dev/
+
 public final class Command {
 
     private final String name;
