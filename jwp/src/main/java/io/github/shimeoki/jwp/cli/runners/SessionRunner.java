@@ -26,7 +26,7 @@ public final class SessionRunner implements Runner {
                 final var opts = line.trim().split("\\s+"); // just by spaces
 
                 try {
-                    App.command.execute(opts);
+                    App.main(opts);
                 } catch (final Exception e) {
                     System.out.printf("error: %s\n", e.getMessage());
                 }

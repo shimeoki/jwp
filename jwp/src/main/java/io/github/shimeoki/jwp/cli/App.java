@@ -6,11 +6,22 @@ import io.github.shimeoki.jwp.cli.runners.tag.CreateTagRunner;
 
 public final class App {
 
-    public static Command command = new Command("jwp", (cmd, _) -> {
-        System.out.print(cmd.help());
-    });
+    private static Command command;
 
-    static {
+    public static void main(String[] args) {
+        init();
+        command.execute(args);
+    }
+
+    private static void init() {
+        if (command != null) {
+            return;
+        }
+
+        command = new Command("jwp", (cmd, _) -> {
+            System.out.print(cmd.help());
+        });
+
         final var session = new Command("session", new SessionRunner());
 
         final var tag = new Command("tag", new TagRunner());
@@ -20,9 +31,5 @@ public final class App {
 
         command.addCommand(tag);
         command.addCommand(session);
-    }
-
-    public static void main(String[] args) {
-        command.execute(args);
     }
 }
