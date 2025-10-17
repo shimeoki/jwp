@@ -1,23 +1,28 @@
 package io.github.shimeoki.jwp.cli;
 
 import io.github.shimeoki.jwp.cli.runners.SessionRunner;
+import io.github.shimeoki.jwp.cli.runners.TagRunner;
+import io.github.shimeoki.jwp.cli.runners.tag.CreateTagRunner;
 
-public final class App implements Runner {
+public final class App {
 
-    private final Command root;
+    public static Command command = new Command("jwp", (cmd, _) -> {
+        System.out.print(cmd.help());
+    });
 
-    public App() {
-        root = new Command("jwp", (cmd, _) -> {
-            System.out.print(cmd.help());
-        });
-
+    static {
         final var session = new Command("session", new SessionRunner());
 
-        root.addCommand(session);
+        final var tag = new Command("tag", new TagRunner());
+        final var tagCreate = new Command("create", new CreateTagRunner());
+
+        tag.addCommand(tagCreate);
+
+        command.addCommand(tag);
+        command.addCommand(session);
     }
 
-    @Override
-    public void run(final Command cmd, final String[] args) {
-        root.execute(args);
+    public static void main(String[] args) {
+        command.execute(args);
     }
 }

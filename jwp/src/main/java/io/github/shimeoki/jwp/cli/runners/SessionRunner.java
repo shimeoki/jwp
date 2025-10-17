@@ -2,31 +2,22 @@ package io.github.shimeoki.jwp.cli.runners;
 
 import java.util.Scanner;
 
+import io.github.shimeoki.jwp.cli.App;
 import io.github.shimeoki.jwp.cli.Command;
 import io.github.shimeoki.jwp.cli.Runner;
-import io.github.shimeoki.jwp.cli.runners.tag.CreateTagRunner;
 
 public final class SessionRunner implements Runner {
 
-    private final Command root;
-
-    public SessionRunner() {
-        root = new Command("jwp", (_, _) -> {
-            // TODO: help
-        });
-
-        final var tag = new Command("tag", (_, _) -> {
-            // TODO: help
-        });
-
-        final var tagCreate = new Command("create", new CreateTagRunner());
-
-        tag.addCommand(tagCreate);
-        root.addCommand(tag);
-    }
+    private static boolean running = false;
 
     @Override
     public void run(final Command cmd, final String[] args) {
+        if (running) {
+            throw new IllegalStateException("recursive sessions are not allowed");
+        }
+
+        running = true;
+
         try (var s = new Scanner(System.in)) {
             System.out.print("> ");
 
@@ -35,7 +26,7 @@ public final class SessionRunner implements Runner {
                 final var opts = line.trim().split("\\s+"); // just by spaces
 
                 try {
-                    root.execute(opts);
+                    App.command.execute(opts);
                 } catch (final Exception e) {
                     System.out.printf("error: %s\n", e.getMessage());
                 }
@@ -43,5 +34,7 @@ public final class SessionRunner implements Runner {
                 System.out.print("> ");
             }
         }
+
+        running = false;
     }
 }
