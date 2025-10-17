@@ -44,4 +44,25 @@ public final class Command {
 
         runner.run(this, args);
     }
+
+    public String help() {
+        final var b = new StringBuilder();
+
+        b.append("Usage: ");
+        b.append(name());
+        b.append("\n");
+
+        final var cmds = commands();
+        if (cmds.size() > 0) {
+            b.append("Commands:\n");
+
+            for (final var cmd : cmds) {
+                b.append("  ");
+                b.append(cmd.name());
+                b.append("\n");
+            }
+        }
+
+        return b.toString();
+    }
 }
