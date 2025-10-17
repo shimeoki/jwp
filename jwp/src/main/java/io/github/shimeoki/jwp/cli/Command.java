@@ -40,6 +40,6 @@ public final class Command {
             }
         }
 
-        runner.run(args);
+        runner.run(this, args);
     }
 }

@@ -7,7 +7,7 @@ public final class App implements Runner {
     private final Command root;
 
     public App() {
-        root = new Command("", (_) -> {
+        root = new Command("", (_, _) -> {
             // TODO: help
         });
 
@@ -17,7 +17,7 @@ public final class App implements Runner {
     }
 
     @Override
-    public void run(String[] args) {
+    public void run(final Command cmd, final String[] args) {
         root.execute(args);
     }
 }

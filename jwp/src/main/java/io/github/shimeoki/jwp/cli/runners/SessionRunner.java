@@ -11,11 +11,11 @@ public final class SessionRunner implements Runner {
     private final Command root;
 
     public SessionRunner() {
-        root = new Command("", (_) -> {
+        root = new Command("", (_, _) -> {
             // TODO: help
         });
 
-        final var tag = new Command("tag", (_) -> {
+        final var tag = new Command("tag", (_, _) -> {
             // TODO: help
         });
 
@@ -26,7 +26,7 @@ public final class SessionRunner implements Runner {
     }
 
     @Override
-    public void run(final String[] args) {
+    public void run(final Command cmd, final String[] args) {
         try (var s = new Scanner(System.in)) {
             System.out.print("> ");
 
