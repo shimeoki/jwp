@@ -11,7 +11,7 @@ public final class SessionRunner implements Runner {
     private final Command root;
 
     public SessionRunner() {
-        root = new Command("", (_, _) -> {
+        root = new Command("jwp", (_, _) -> {
             // TODO: help
         });
 

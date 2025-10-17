@@ -15,7 +15,12 @@ public final class Command {
     private final Map<String, Command> commands;
 
     public Command(final String name, final Runner runner) {
-        this.name = Objects.requireNonNull(name);
+        final var sanitized = Objects.requireNonNull(name).trim().toLowerCase();
+        if (sanitized.isBlank() || !sanitized.matches("\\w+")) {
+            throw new IllegalArgumentException("invalid name");
+        }
+
+        this.name = sanitized;
         this.runner = Objects.requireNonNull(runner);
         this.commands = new HashMap<>();
     }
