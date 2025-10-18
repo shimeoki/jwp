@@ -24,6 +24,7 @@
                 # keep-sorted start
                 ./flake/dev.nix
                 ./flake/fmt.nix
+                ./flake/package.nix
                 # keep-sorted end
             ];
         };

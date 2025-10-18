@@ -1,0 +1,21 @@
+{
+ "!comment": "This is a nixpkgs Gradle dependency lockfile. For more details, refer to the Gradle section in the nixpkgs manual.",
+ "!version": 1,
+ "https://plugins.gradle.org/m2": {
+  "com/google/code/gson#gson-parent/2.10.1": {
+   "pom": "sha256-QkjgiCQmxhUYI4XWCGw+8yYudplXGJ4pMGKAuFSCuDM="
+  },
+  "com/google/code/gson#gson/2.10.1": {
+   "jar": "sha256-QkHBSncnw0/uplB+yAExij1KkPBw5FJWgQefuU7kxZM=",
+   "pom": "sha256-0rEVY09cCF20ucn/wmWOieIx/b++IkISGhzZXU2Ujdc="
+  },
+  "org/gradle/toolchains#foojay-resolver/0.10.0": {
+   "jar": "sha256-DNfKn57RuooyPxkCwFryHdYiOhMDRfvnj15I1YzNbUw=",
+   "module": "sha256-SduV7YEABA8dZfCWuied7msSeCSNL3k7z7itAg59HNA=",
+   "pom": "sha256-vndZUF4PPTTVzJzcaGwZxlIuhMzg+MEJ69LW9HsYqSU="
+  },
+  "org/gradle/toolchains/foojay-resolver-convention#org.gradle.toolchains.foojay-resolver-convention.gradle.plugin/0.10.0": {
+   "pom": "sha256-OpLrFa3uBcGiaCT2SIcqVx6fk99koO3L4TTjjtLY4Q8="
+  }
+ }
+}
