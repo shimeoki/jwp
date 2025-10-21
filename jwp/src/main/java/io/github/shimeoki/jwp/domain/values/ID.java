@@ -27,11 +27,10 @@ public final class ID implements Serializable, Comparable<ID> {
 
     @Override
     public boolean equals(final Object o) {
-        if (!(o instanceof ID)) {
+        if (!(o instanceof ID id)) {
             return false;
         }
 
-        final ID id = (ID) o;
         return uuid.equals(id.uuid);
     }
 
