@@ -11,6 +11,17 @@ public enum Algorithm {
         this.value = value;
     }
 
+    public static Algorithm fromString(final String algorithm) {
+        switch (algorithm.toLowerCase()) {
+            case "sha256":
+                return SHA256;
+            case "md5":
+                return MD5;
+            default:
+                throw new IllegalArgumentException("invalid algorithm");
+        }
+    }
+
     @Override
     public String toString() {
         return value;
