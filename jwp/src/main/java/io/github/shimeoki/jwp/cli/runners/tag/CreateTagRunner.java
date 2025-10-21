@@ -4,7 +4,7 @@ import io.github.shimeoki.jwp.app.actions.tagcreate.CreateTagCommand;
 import io.github.shimeoki.jwp.app.actions.tagcreate.CreateTagHandler;
 import io.github.shimeoki.jwp.cli.Command;
 import io.github.shimeoki.jwp.cli.Runner;
-import io.github.shimeoki.jwp.infra.inmemory.InMemoryTagRepository;
+import io.github.shimeoki.jwp.infra.inmemory.TagRepository;
 
 public final class CreateTagRunner implements Runner {
 
@@ -14,7 +14,7 @@ public final class CreateTagRunner implements Runner {
             throw new IllegalArgumentException("no name provided");
         }
 
-        final var repo = new InMemoryTagRepository();
+        final var repo = new TagRepository();
         final var handler = new CreateTagHandler(repo);
 
         handler.handle(new CreateTagCommand(args[0]));
