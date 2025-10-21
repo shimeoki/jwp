@@ -5,16 +5,16 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import io.github.shimeoki.jwp.domain.entities.Tag;
-import io.github.shimeoki.jwp.domain.repositories.TagRepository;
 import io.github.shimeoki.jwp.domain.values.ID;
 import io.github.shimeoki.jwp.domain.values.Name;
 
-public final class InMemoryTagRepository implements TagRepository {
+public final class TagRepository
+        implements io.github.shimeoki.jwp.domain.repositories.TagRepository {
 
-    private final InMemoryDatabase db;
+    private final Database db;
 
-    public InMemoryTagRepository() {
-        db = InMemoryDatabase.getInstance();
+    public TagRepository(final Database db) {
+        this.db = Objects.requireNonNull(db);
     }
 
     @Override
