@@ -14,9 +14,9 @@ import io.github.shimeoki.jwp.domain.values.Hash;
 import io.github.shimeoki.jwp.domain.values.ID;
 import io.github.shimeoki.jwp.domain.values.Name;
 
-public final class InMemoryDatabase {
+public final class Database {
 
-    private static InMemoryDatabase instance;
+    private static Database instance;
 
     private final Map<ID, Tag> tagsByID;
     private final Map<Name, Tag> tagsByName;
@@ -29,7 +29,7 @@ public final class InMemoryDatabase {
     private final Map<ID, Set<ID>> tagWallpapers;
     private final Map<ID, Set<ID>> sourceWallpapers;
 
-    private InMemoryDatabase() {
+    private Database() {
         tagsByID = new HashMap<>();
         tagsByName = new HashMap<>();
 
@@ -42,9 +42,9 @@ public final class InMemoryDatabase {
         sourceWallpapers = new HashMap<>();
     }
 
-    public static InMemoryDatabase open() {
+    public static Database open() {
         if (instance == null) {
-            instance = new InMemoryDatabase();
+            instance = new Database();
         }
 
         return instance;

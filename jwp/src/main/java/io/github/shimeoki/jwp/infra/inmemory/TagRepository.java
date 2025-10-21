@@ -11,10 +11,10 @@ import io.github.shimeoki.jwp.domain.values.Name;
 public final class TagRepository
         implements io.github.shimeoki.jwp.domain.repositories.TagRepository {
 
-    private final InMemoryDatabase db;
+    private final Database db;
 
     public TagRepository() {
-        db = InMemoryDatabase.open();
+        db = Database.open();
     }
 
     @Override

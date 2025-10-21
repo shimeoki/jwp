@@ -10,10 +10,10 @@ import io.github.shimeoki.jwp.domain.values.ID;
 public final class SourceRepository
         implements io.github.shimeoki.jwp.domain.repositories.SourceRepository {
 
-    private final InMemoryDatabase db;
+    private final Database db;
 
     public SourceRepository() {
-        db = InMemoryDatabase.open();
+        db = Database.open();
     }
 
     @Override
