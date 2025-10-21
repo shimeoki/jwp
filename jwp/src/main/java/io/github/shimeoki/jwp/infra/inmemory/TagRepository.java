@@ -13,8 +13,8 @@ public final class TagRepository
 
     private final Database db;
 
-    public TagRepository() {
-        db = Database.open();
+    public TagRepository(final Database db) {
+        this.db = Objects.requireNonNull(db);
     }
 
     @Override

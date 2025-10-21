@@ -12,8 +12,8 @@ public final class SourceRepository
 
     private final Database db;
 
-    public SourceRepository() {
-        db = Database.open();
+    public SourceRepository(final Database db) {
+        this.db = Objects.requireNonNull(db);
     }
 
     @Override
