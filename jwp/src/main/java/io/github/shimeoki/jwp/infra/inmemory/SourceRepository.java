@@ -5,14 +5,14 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import io.github.shimeoki.jwp.domain.entities.Source;
-import io.github.shimeoki.jwp.domain.repositories.SourceRepository;
 import io.github.shimeoki.jwp.domain.values.ID;
 
-public final class InMemorySourceRepository implements SourceRepository {
+public final class SourceRepository
+        implements io.github.shimeoki.jwp.domain.repositories.SourceRepository {
 
     private final InMemoryDatabase db;
 
-    public InMemorySourceRepository() {
+    public SourceRepository() {
         db = InMemoryDatabase.open();
     }
 
