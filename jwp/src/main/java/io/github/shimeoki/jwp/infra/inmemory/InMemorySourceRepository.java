@@ -13,7 +13,7 @@ public final class InMemorySourceRepository implements SourceRepository {
     private final InMemoryDatabase db;
 
     public InMemorySourceRepository() {
-        db = InMemoryDatabase.getInstance();
+        db = InMemoryDatabase.open();
     }
 
     @Override

@@ -42,7 +42,7 @@ public final class InMemoryDatabase {
         sourceWallpapers = new HashMap<>();
     }
 
-    public static InMemoryDatabase getInstance() {
+    public static InMemoryDatabase open() {
         if (instance == null) {
             instance = new InMemoryDatabase();
         }

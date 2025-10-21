@@ -14,7 +14,7 @@ public final class InMemoryTagRepository implements TagRepository {
     private final InMemoryDatabase db;
 
     public InMemoryTagRepository() {
-        db = InMemoryDatabase.getInstance();
+        db = InMemoryDatabase.open();
     }
 
     @Override
