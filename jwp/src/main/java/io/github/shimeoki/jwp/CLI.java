@@ -18,6 +18,11 @@ public final class CLI implements Runner {
     public CLI(final App app) {
         this.app = Objects.requireNonNull(app);
 
+        // ideally this can be done dynamically to change the config
+        // from the commands (for example, to get --config command working),
+        // but it works for now
+        app.open();
+
         final var handlers = this.app.handlers();
 
         command = new Command("jwp", (cmd, _) -> {
