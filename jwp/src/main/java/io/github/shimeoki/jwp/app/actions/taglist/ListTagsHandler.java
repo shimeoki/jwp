@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import io.github.shimeoki.jwp.app.Handler;
 import io.github.shimeoki.jwp.domain.entities.Tag;
+import io.github.shimeoki.jwp.domain.values.Name;
 
 public final class ListTagsHandler
         implements Handler<ListTagsQuery, ListTagsResult> {
@@ -19,8 +20,11 @@ public final class ListTagsHandler
         try (final var p = worker.work()) {
             final var tags = p.tagRepository();
 
-            final var all = tags.findAll();
-            final var names = all.map(Tag::name).toArray(String[]::new);
+            final var names = tags.findAll()
+                    .map(Tag::name)
+                    .map(Name::toString)
+                    .toArray(String[]::new);
+
             p.commit();
 
             return new ListTagsResult(names);
