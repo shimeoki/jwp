@@ -6,8 +6,8 @@ import io.github.shimeoki.jwp.app.actions.tagcreate.CreateTagHandler;
 import io.github.shimeoki.jwp.app.actions.tagdelete.DeleteTagHandler;
 import io.github.shimeoki.jwp.app.actions.taglist.ListTagsHandler;
 import io.github.shimeoki.jwp.app.actions.tagrename.RenameTagHandler;
-import io.github.shimeoki.jwp.infra.inmemory.Database;
-import io.github.shimeoki.jwp.infra.inmemory.TagRepository;
+import io.github.shimeoki.jwp.infra.db.inmemory.Database;
+import io.github.shimeoki.jwp.infra.db.inmemory.TagRepository;
 
 public final class Worker
         implements io.github.shimeoki.jwp.app.Worker<Provider> {

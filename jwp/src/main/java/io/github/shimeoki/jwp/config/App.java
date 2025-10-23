@@ -2,7 +2,7 @@ package io.github.shimeoki.jwp.config;
 
 import java.util.Objects;
 
-import io.github.shimeoki.jwp.infra.inmemory.Database;
+import io.github.shimeoki.jwp.infra.db.inmemory.Database;
 
 public final class App {
 
