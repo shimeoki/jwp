@@ -25,9 +25,11 @@ public final class CreateTagHandler
                     (_) -> new IllegalArgumentException("tag already exists"));
 
             tags.save(new Tag(name));
+            p.commit();
+
             return new CreateTagResult();
         } catch (final Exception e) {
-            // TODO: handle exception
+            // TODO: handle
             return null;
         }
     }
