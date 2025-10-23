@@ -22,7 +22,9 @@ public final class CreateTagHandler
 
             final var name = new Name(cmd.name());
             tags.findByName(name).ifPresent(
-                    (_) -> new IllegalArgumentException("tag already exists"));
+                    (_) -> {
+                        throw new IllegalArgumentException("tag already exists");
+                    });
 
             tags.save(new Tag(name));
             p.commit();
