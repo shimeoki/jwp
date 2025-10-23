@@ -8,4 +8,9 @@ public record Name(String value) {
             throw new IllegalArgumentException("value is empty");
         }
     }
+
+    @Override
+    public final String toString() {
+        return value;
+    }
 }
