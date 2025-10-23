@@ -7,6 +7,7 @@ import io.github.shimeoki.jwp.cli.Runner;
 import io.github.shimeoki.jwp.cli.runners.SessionRunner;
 import io.github.shimeoki.jwp.cli.runners.TagRunner;
 import io.github.shimeoki.jwp.cli.runners.tag.CreateTagRunner;
+import io.github.shimeoki.jwp.cli.runners.tag.ListTagsRunner;
 import io.github.shimeoki.jwp.config.App;
 
 public final class CLI implements Runner {
@@ -38,7 +39,11 @@ public final class CLI implements Runner {
         final var tagCreate = new Command("create",
                 new CreateTagRunner(handlers.createTag()));
 
+        final var tagList = new Command("list",
+                new ListTagsRunner(handlers.listTags()));
+
         tag.addCommand(tagCreate);
+        tag.addCommand(tagList);
 
         command.addCommand(tag);
         command.addCommand(session);
