@@ -4,25 +4,31 @@ import java.util.Objects;
 
 import io.github.shimeoki.jwp.app.Handler;
 import io.github.shimeoki.jwp.domain.entities.Tag;
-import io.github.shimeoki.jwp.domain.repositories.TagRepository;
 import io.github.shimeoki.jwp.domain.values.Name;
 
 public final class CreateTagHandler
         implements Handler<CreateTagCommand, CreateTagResult> {
 
-    private final TagRepository tags;
+    private final CreateTagWorker worker;
 
-    public CreateTagHandler(final TagRepository tags) {
-        this.tags = Objects.requireNonNull(tags);
+    public CreateTagHandler(final CreateTagWorker w) {
+        worker = Objects.requireNonNull(w);
     }
 
     @Override
     public CreateTagResult handle(final CreateTagCommand cmd) {
-        final var name = new Name(cmd.name());
-        tags.findByName(name).ifPresent(
-                (_) -> new IllegalArgumentException("tag already exists"));
+        try (final var p = worker.work()) {
+            final var tags = p.tagRepository();
 
-        tags.save(new Tag(name));
-        return new CreateTagResult();
+            final var name = new Name(cmd.name());
+            tags.findByName(name).ifPresent(
+                    (_) -> new IllegalArgumentException("tag already exists"));
+
+            tags.save(new Tag(name));
+            return new CreateTagResult();
+        } catch (final Exception e) {
+            // TODO: handle exception
+            return null;
+        }
     }
 }
