@@ -1,4 +1,4 @@
-package io.github.shimeoki.jwp.infra.inmemory;
+package io.github.shimeoki.jwp.infra.db.inmemory;
 
 import java.util.Objects;
 import java.util.Optional;
