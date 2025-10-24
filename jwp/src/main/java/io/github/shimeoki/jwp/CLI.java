@@ -9,6 +9,7 @@ import io.github.shimeoki.jwp.cli.runners.TagRunner;
 import io.github.shimeoki.jwp.cli.runners.tag.CreateTagRunner;
 import io.github.shimeoki.jwp.cli.runners.tag.DeleteTagRunner;
 import io.github.shimeoki.jwp.cli.runners.tag.ListTagsRunner;
+import io.github.shimeoki.jwp.cli.runners.tag.RenameTagRunner;
 import io.github.shimeoki.jwp.config.App;
 
 public final class CLI implements Runner {
@@ -46,9 +47,13 @@ public final class CLI implements Runner {
         final var tagDelete = new Command("delete",
                 new DeleteTagRunner(handlers.deleteTag()));
 
+        final var tagRename = new Command("rename",
+                new RenameTagRunner(handlers.renameTag()));
+
         tag.addCommand(tagCreate);
         tag.addCommand(tagList);
         tag.addCommand(tagDelete);
+        tag.addCommand(tagRename);
 
         command.addCommand(tag);
         command.addCommand(session);
