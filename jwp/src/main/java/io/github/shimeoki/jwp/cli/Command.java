@@ -12,11 +12,16 @@ public final class Command {
 
     private final String name;
     private final String usage;
+    private final String description;
 
     private final Runner runner;
     private final Map<String, Command> commands;
 
-    public Command(final String usage, final Runner runner) {
+    public Command(
+            final String usage,
+            final String description,
+            final Runner runner) {
+
         final var parts = Objects.requireNonNull(usage).split("\\s+", 2);
 
         final var name = parts[0].trim().toLowerCase();
@@ -31,6 +36,7 @@ public final class Command {
         }
 
         this.name = name;
+        this.description = Objects.requireNonNull(description);
         this.runner = Objects.requireNonNull(runner);
         this.commands = new HashMap<>();
     }
@@ -46,6 +52,10 @@ public final class Command {
 
     public String usage() {
         return usage;
+    }
+
+    public String description() {
+        return description;
     }
 
     public Collection<Command> commands() {
@@ -71,6 +81,10 @@ public final class Command {
         b.append(usage());
         b.append("\n");
 
+        b.append("Description: ");
+        b.append(description());
+        b.append("\n");
+
         final var cmds = commands();
         if (cmds.size() > 0) {
             b.append("Commands:\n");
@@ -78,6 +92,8 @@ public final class Command {
             for (final var cmd : cmds) {
                 b.append("  ");
                 b.append(cmd.usage());
+                b.append(" - ");
+                b.append(cmd.description());
                 b.append("\n");
             }
         }

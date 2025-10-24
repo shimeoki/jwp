@@ -31,10 +31,14 @@ public final class CLI implements Runner {
 
         handlers = this.app.handlers();
 
-        command = new Command("jwp",
+        command = new Command(
+                "jwp",
+                "Manage your wallpapers in a hashed store",
                 (cmd, _) -> System.out.print(cmd.help()));
 
-        command.addCommand(new Command("session",
+        command.addCommand(new Command(
+                "session",
+                "Enter a session to use other commands continuosly",
                 new SessionRunner(this)));
 
         addTagCommand();
@@ -43,26 +47,31 @@ public final class CLI implements Runner {
     private void addTagCommand() {
         final var tag = new Command(
                 "tag",
+                "Tag related commands",
                 (cmd, _) -> System.out.println(cmd.help()));
 
         tag.addCommand(new Command(
                 "create [name]",
+                "Create a tag with an unique name",
                 Runners.exactArgs(1, (_, args) -> this.handlers.createTag()
                         .handle(new CreateTagCommand(args[0])))));
 
         tag.addCommand(new Command(
                 "list",
+                "Print all available tags",
                 Runners.exactArgs(0, (_, _) -> System.out.println(
                         String.join("\n", this.handlers.listTags()
                                 .handle(new ListTagsQuery()).names())))));
 
         tag.addCommand(new Command(
                 "delete [name]",
+                "Delete a tag with the specified name",
                 Runners.exactArgs(1, (_, args) -> this.handlers.deleteTag()
                         .handle(new DeleteTagCommand(args[0])))));
 
         tag.addCommand(new Command(
                 "rename [before] [after]",
+                "Rename a tag: merge the 'before' tag with the 'after'",
                 Runners.exactArgs(2, (_, args) -> this.handlers.renameTag()
                         .handle(new RenameTagCommand(args[0], args[1])))));
 
