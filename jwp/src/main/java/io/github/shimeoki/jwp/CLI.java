@@ -46,7 +46,7 @@ public final class CLI implements Runner {
                 (cmd, _) -> System.out.println(cmd.help()));
 
         tag.addCommand(new Command(
-                "create",
+                "create [name]",
                 Runners.exactArgs(1, (_, args) -> this.handlers.createTag()
                         .handle(new CreateTagCommand(args[0])))));
 
@@ -57,12 +57,12 @@ public final class CLI implements Runner {
                                 .handle(new ListTagsQuery()).names())))));
 
         tag.addCommand(new Command(
-                "delete",
+                "delete [name]",
                 Runners.exactArgs(1, (_, args) -> this.handlers.deleteTag()
                         .handle(new DeleteTagCommand(args[0])))));
 
         tag.addCommand(new Command(
-                "rename",
+                "rename [before] [after]",
                 Runners.exactArgs(2, (_, args) -> this.handlers.renameTag()
                         .handle(new RenameTagCommand(args[0], args[1])))));
 

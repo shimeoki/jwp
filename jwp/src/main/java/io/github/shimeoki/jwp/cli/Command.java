@@ -11,27 +11,41 @@ import java.util.Objects;
 public final class Command {
 
     private final String name;
+    private final String usage;
+
     private final Runner runner;
     private final Map<String, Command> commands;
 
-    public Command(final String name, final Runner runner) {
-        final var sanitized = Objects.requireNonNull(name).trim().toLowerCase();
-        if (sanitized.isBlank() || !sanitized.matches("\\w+")) {
+    public Command(final String usage, final Runner runner) {
+        final var parts = Objects.requireNonNull(usage).split("\\s+", 2);
+
+        final var name = parts[0].trim().toLowerCase();
+        if (name.isBlank() || !name.matches("\\w+")) {
             throw new IllegalArgumentException("invalid name");
         }
 
-        this.name = sanitized;
+        if (parts.length > 1) {
+            this.usage = String.join(" ", name, parts[1]);
+        } else {
+            this.usage = name;
+        }
+
+        this.name = name;
         this.runner = Objects.requireNonNull(runner);
         this.commands = new HashMap<>();
     }
 
     public void addCommand(final Command cmd) {
         Objects.requireNonNull(cmd);
-        commands.put(cmd.name, cmd);
+        commands.put(cmd.name(), cmd);
     }
 
     public String name() {
         return name;
+    }
+
+    public String usage() {
+        return usage;
     }
 
     public Collection<Command> commands() {
@@ -54,7 +68,7 @@ public final class Command {
         final var b = new StringBuilder();
 
         b.append("Usage: ");
-        b.append(name());
+        b.append(usage());
         b.append("\n");
 
         final var cmds = commands();
@@ -63,7 +77,7 @@ public final class Command {
 
             for (final var cmd : cmds) {
                 b.append("  ");
-                b.append(cmd.name());
+                b.append(cmd.usage());
                 b.append("\n");
             }
         }
