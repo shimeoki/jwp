@@ -1,6 +1,7 @@
 package io.github.shimeoki.jwp.infra.store;
 
 import java.security.MessageDigest;
+import java.util.HexFormat;
 
 import io.github.shimeoki.jwp.domain.values.Algorithm;
 import io.github.shimeoki.jwp.domain.values.Hash;
@@ -35,7 +36,7 @@ public final class Hashers {
                     md.update(buf, 0, read);
                 }
 
-                return new Hash(a, md.digest().toString());
+                return new Hash(a, HexFormat.of().formatHex(md.digest()));
             } catch (final Exception e) {
                 // TODO: handle
                 return null;
