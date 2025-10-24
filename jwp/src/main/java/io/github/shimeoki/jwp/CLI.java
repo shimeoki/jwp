@@ -2,20 +2,23 @@ package io.github.shimeoki.jwp;
 
 import java.util.Objects;
 
+import io.github.shimeoki.jwp.app.actions.tagcreate.CreateTagCommand;
+import io.github.shimeoki.jwp.app.actions.tagdelete.DeleteTagCommand;
+import io.github.shimeoki.jwp.app.actions.taglist.ListTagsQuery;
+import io.github.shimeoki.jwp.app.actions.tagrename.RenameTagCommand;
 import io.github.shimeoki.jwp.cli.Command;
 import io.github.shimeoki.jwp.cli.Runner;
+import io.github.shimeoki.jwp.cli.Runners;
 import io.github.shimeoki.jwp.cli.runners.SessionRunner;
-import io.github.shimeoki.jwp.cli.runners.TagRunner;
-import io.github.shimeoki.jwp.cli.runners.tag.CreateTagRunner;
-import io.github.shimeoki.jwp.cli.runners.tag.DeleteTagRunner;
-import io.github.shimeoki.jwp.cli.runners.tag.ListTagsRunner;
-import io.github.shimeoki.jwp.cli.runners.tag.RenameTagRunner;
 import io.github.shimeoki.jwp.config.App;
+import io.github.shimeoki.jwp.config.Handlers;
 
 public final class CLI implements Runner {
 
     private final App app;
     private final Command command;
+
+    private Handlers handlers;
 
     // TODO: refactor into smaller functions
     public CLI(final App app) {
@@ -26,37 +29,44 @@ public final class CLI implements Runner {
         // but it works for now
         app.open();
 
-        final var handlers = this.app.handlers();
+        handlers = this.app.handlers();
 
-        command = new Command("jwp", (cmd, _) -> {
-            System.out.print(cmd.help());
-        });
+        command = new Command("jwp",
+                (cmd, _) -> System.out.print(cmd.help()));
 
-        final var session = new Command("session",
-                new SessionRunner(this));
+        command.addCommand(new Command("session",
+                new SessionRunner(this)));
 
-        final var tag = new Command("tag",
-                new TagRunner());
+        addTagCommand();
+    }
 
-        final var tagCreate = new Command("create",
-                new CreateTagRunner(handlers.createTag()));
+    private void addTagCommand() {
+        final var tag = new Command(
+                "tag",
+                (cmd, _) -> System.out.println(cmd.help()));
 
-        final var tagList = new Command("list",
-                new ListTagsRunner(handlers.listTags()));
+        tag.addCommand(new Command(
+                "create",
+                Runners.exactArgs(1, (_, args) -> this.handlers.createTag()
+                        .handle(new CreateTagCommand(args[0])))));
 
-        final var tagDelete = new Command("delete",
-                new DeleteTagRunner(handlers.deleteTag()));
+        tag.addCommand(new Command(
+                "list",
+                Runners.exactArgs(0, (_, _) -> System.out.println(
+                        String.join("\n", this.handlers.listTags()
+                                .handle(new ListTagsQuery()).names())))));
 
-        final var tagRename = new Command("rename",
-                new RenameTagRunner(handlers.renameTag()));
+        tag.addCommand(new Command(
+                "delete",
+                Runners.exactArgs(1, (_, args) -> this.handlers.deleteTag()
+                        .handle(new DeleteTagCommand(args[0])))));
 
-        tag.addCommand(tagCreate);
-        tag.addCommand(tagList);
-        tag.addCommand(tagDelete);
-        tag.addCommand(tagRename);
+        tag.addCommand(new Command(
+                "rename",
+                Runners.exactArgs(2, (_, args) -> this.handlers.renameTag()
+                        .handle(new RenameTagCommand(args[0], args[1])))));
 
         command.addCommand(tag);
-        command.addCommand(session);
     }
 
     @Override
