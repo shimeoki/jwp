@@ -8,20 +8,14 @@ import java.util.Objects;
 
 // heavy inspiration from https://cobra.dev/
 
-public final class Command {
+public abstract class Command implements Runner {
 
     private final String name;
     private final String usage;
-    private final String description;
 
-    private final Runner runner;
     private final Map<String, Command> commands;
 
-    public Command(
-            final String usage,
-            final String description,
-            final Runner runner) {
-
+    public Command(final String usage) {
         final var parts = Objects.requireNonNull(usage).split("\\s+", 2);
 
         final var name = parts[0].trim().toLowerCase();
@@ -36,33 +30,32 @@ public final class Command {
         }
 
         this.name = name;
-        this.description = Objects.requireNonNull(description);
-        this.runner = Objects.requireNonNull(runner);
         this.commands = new HashMap<>();
     }
 
-    public void addCommand(final Command cmd) {
+    @Override
+    public abstract void run(final String[] args);
+
+    public abstract String description();
+
+    public final void addCommand(final Command cmd) {
         Objects.requireNonNull(cmd);
         commands.put(cmd.name(), cmd);
     }
 
-    public String name() {
+    public final String name() {
         return name;
     }
 
-    public String usage() {
+    public final String usage() {
         return usage;
     }
 
-    public String description() {
-        return description;
-    }
-
-    public Collection<Command> commands() {
+    public final Collection<Command> commands() {
         return commands.values();
     }
 
-    public void execute(final String[] args) {
+    public final void execute(final String[] args) {
         if (args.length > 0) {
             final var command = commands.get(args[0]);
             if (command != null) {
@@ -71,10 +64,10 @@ public final class Command {
             }
         }
 
-        runner.run(this, args);
+        run(args);
     }
 
-    public String help() {
+    public final String help() {
         final var b = new StringBuilder();
 
         b.append("Usage: ");
