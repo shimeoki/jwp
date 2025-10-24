@@ -1,9 +1,6 @@
 package io.github.shimeoki.jwp.app.actions.taglist;
 
-import io.github.shimeoki.jwp.app.Provider;
-import io.github.shimeoki.jwp.domain.repositories.TagRepository;
+import io.github.shimeoki.jwp.app.providers.TagProvider;
 
-public interface ListTagsProvider extends Provider {
-
-    TagRepository tagRepository();
+public interface ListTagsProvider extends TagProvider {
 }

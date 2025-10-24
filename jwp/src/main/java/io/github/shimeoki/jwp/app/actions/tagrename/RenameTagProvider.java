@@ -1,12 +1,8 @@
 package io.github.shimeoki.jwp.app.actions.tagrename;
 
-import io.github.shimeoki.jwp.app.Provider;
-import io.github.shimeoki.jwp.domain.repositories.TagRepository;
-import io.github.shimeoki.jwp.domain.repositories.WallpaperRepository;
+import io.github.shimeoki.jwp.app.providers.TagProvider;
+import io.github.shimeoki.jwp.app.providers.WallpaperProvider;
 
-public interface RenameTagProvider extends Provider {
-
-    WallpaperRepository wallpaperRepository();
-
-    TagRepository tagRepository();
+public interface RenameTagProvider
+        extends WallpaperProvider, TagProvider {
 }
