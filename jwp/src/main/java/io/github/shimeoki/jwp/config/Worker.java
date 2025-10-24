@@ -2,10 +2,6 @@ package io.github.shimeoki.jwp.config;
 
 import java.util.Objects;
 
-import io.github.shimeoki.jwp.app.actions.tagcreate.CreateTagHandler;
-import io.github.shimeoki.jwp.app.actions.tagdelete.DeleteTagHandler;
-import io.github.shimeoki.jwp.app.actions.taglist.ListTagsHandler;
-import io.github.shimeoki.jwp.app.actions.tagrename.RenameTagHandler;
 import io.github.shimeoki.jwp.infra.db.inmemory.Database;
 import io.github.shimeoki.jwp.infra.db.inmemory.TagRepository;
 
@@ -25,13 +21,5 @@ public final class Worker
                 null); // TODO: add when wallpaper inmemory repo
 
         return new Provider(repos, null);
-    }
-
-    public Handlers handlers() {
-        return new Handlers(
-                new CreateTagHandler(() -> work()),
-                new DeleteTagHandler(() -> work()),
-                new ListTagsHandler(() -> work()),
-                new RenameTagHandler(() -> work()));
     }
 }

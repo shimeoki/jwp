@@ -1,5 +1,6 @@
 package io.github.shimeoki.jwp.config;
 
+import io.github.shimeoki.jwp.app.Worker;
 import io.github.shimeoki.jwp.app.actions.tagcreate.CreateTagHandler;
 import io.github.shimeoki.jwp.app.actions.tagdelete.DeleteTagHandler;
 import io.github.shimeoki.jwp.app.actions.taglist.ListTagsHandler;
@@ -10,4 +11,12 @@ public record Handlers(
         DeleteTagHandler deleteTag,
         ListTagsHandler listTags,
         RenameTagHandler renameTag) {
+
+    public static Handlers fromWorker(final Worker<Provider> w) {
+        return new Handlers(
+                new CreateTagHandler(() -> w.work()),
+                new DeleteTagHandler(() -> w.work()),
+                new ListTagsHandler(() -> w.work()),
+                new RenameTagHandler(() -> w.work()));
+    }
 }

@@ -20,7 +20,7 @@ public final class App {
         db = Database.open();
         worker = new Worker(db);
 
-        handlers = worker.handlers();
+        handlers = Handlers.fromWorker(worker);
     }
 
     public Handlers handlers() {
