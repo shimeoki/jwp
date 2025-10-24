@@ -1,6 +1,7 @@
 package io.github.shimeoki.jwp;
 
 import java.util.Objects;
+import java.util.Scanner;
 
 import io.github.shimeoki.jwp.app.actions.tagcreate.CreateTagCommand;
 import io.github.shimeoki.jwp.app.actions.tagdelete.DeleteTagCommand;
@@ -9,11 +10,12 @@ import io.github.shimeoki.jwp.app.actions.tagrename.RenameTagCommand;
 import io.github.shimeoki.jwp.cli.Command;
 import io.github.shimeoki.jwp.cli.Runner;
 import io.github.shimeoki.jwp.cli.Runners;
-import io.github.shimeoki.jwp.cli.runners.SessionRunner;
 import io.github.shimeoki.jwp.config.App;
 import io.github.shimeoki.jwp.config.Handlers;
 
 public final class CLI implements Runner {
+
+    private static boolean session = false;
 
     private final App app;
     private final Command command;
@@ -36,12 +38,8 @@ public final class CLI implements Runner {
                 "Manage your wallpapers in a hashed store",
                 (cmd, _) -> System.out.print(cmd.help()));
 
-        command.addCommand(new Command(
-                "session",
-                "Enter a session to use other commands continuosly",
-                new SessionRunner(this)));
-
         addTagCommand();
+        addSessionCommand();
     }
 
     private void addTagCommand() {
@@ -76,6 +74,39 @@ public final class CLI implements Runner {
                         .handle(new RenameTagCommand(args[0], args[1])))));
 
         command.addCommand(tag);
+    }
+
+    private void addSessionCommand() {
+        command.addCommand(new Command(
+                "session",
+                "Enter a session to use other commands continuosly",
+                Runners.exactArgs(0, (_, _) -> {
+                    if (session) {
+                        throw new IllegalStateException(
+                                "recursive sessions are not allowed");
+                    }
+
+                    session = true;
+
+                    try (var s = new Scanner(System.in)) {
+                        System.out.print("> ");
+
+                        while (s.hasNextLine()) {
+                            final var line = s.nextLine();
+                            final var opts = line.trim().split("\\s+");
+
+                            try {
+                                run(null, opts);
+                            } catch (final Exception e) {
+                                System.out.printf("error: %s\n", e.getMessage());
+                            }
+
+                            System.out.print("> ");
+                        }
+                    }
+
+                    session = false;
+                })));
     }
 
     @Override
