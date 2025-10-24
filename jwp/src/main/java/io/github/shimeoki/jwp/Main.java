@@ -10,6 +10,6 @@ public final class Main {
         final var app = new App(cfg);
 
         final var cli = new CLI(app);
-        cli.run(null, args);
+        cli.run(args);
     }
 }

@@ -11,7 +11,6 @@ public final class CLI implements Runner {
 
     private final Command root;
 
-    // TODO: refactor into smaller functions
     public CLI(final App app) {
         Objects.requireNonNull(app);
         this.root = new Root(app);
