@@ -14,9 +14,9 @@ public final class SessionCommand extends Command {
     // TODO: static?
     private boolean running = false;
 
-    private final Runner root;
+    private final Command root;
 
-    public SessionCommand(final Runner root) {
+    public SessionCommand(final Command root) {
         super("session");
         this.root = Objects.requireNonNull(root);
     }
@@ -40,7 +40,7 @@ public final class SessionCommand extends Command {
                 final var opts = line.trim().split("\\s+");
 
                 try {
-                    root.run(opts);
+                    root.execute(opts);
                 } catch (final Exception e) {
                     System.out.printf("error: %s\n", e.getMessage());
                 }
