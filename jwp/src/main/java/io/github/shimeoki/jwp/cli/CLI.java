@@ -2,6 +2,7 @@ package io.github.shimeoki.jwp.cli;
 
 import java.util.Objects;
 
+import io.github.shimeoki.jwp.cli.commands.RootCommand;
 import io.github.shimeoki.jwp.config.App;
 
 public final class CLI implements Runner {
@@ -10,7 +11,7 @@ public final class CLI implements Runner {
 
     public CLI(final App app) {
         Objects.requireNonNull(app);
-        this.root = new Root(app);
+        this.root = new RootCommand(app);
 
         // ideally this can be done dynamically to change the config
         // from the commands (for example, to get --config command working),
