@@ -15,13 +15,9 @@
                 nixfmt = {
                     enable = true;
                     width = 80;
+                    indent = 4;
                 };
                 # keep-sorted end
-            };
-
-            settings.formatter = {
-                # TODO: use indent option after numtide/treefmt-nix#416
-                nixfmt.options = [ "--indent=4" ];
             };
         };
     };
