@@ -1,5 +1,6 @@
 package io.github.shimeoki.jwp;
 
+import io.github.shimeoki.jwp.cli.CLI;
 import io.github.shimeoki.jwp.config.App;
 import io.github.shimeoki.jwp.config.Config;
 

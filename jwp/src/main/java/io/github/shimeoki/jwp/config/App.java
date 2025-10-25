@@ -3,7 +3,7 @@ package io.github.shimeoki.jwp.config;
 import java.util.Objects;
 
 import io.github.shimeoki.jwp.app.Worker;
-import io.github.shimeoki.jwp.config.workers.LocalInmemoryWorker;
+import io.github.shimeoki.jwp.config.workers.LocalInMemoryWorker;
 import io.github.shimeoki.jwp.infra.db.inmemory.Database;
 
 public final class App {
@@ -20,7 +20,7 @@ public final class App {
 
     public void open() {
         db = Database.open();
-        worker = new LocalInmemoryWorker(db);
+        worker = new LocalInMemoryWorker(db);
 
         handlers = Handlers.fromWorker(worker);
     }

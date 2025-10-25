@@ -8,11 +8,11 @@ import io.github.shimeoki.jwp.config.Repositories;
 import io.github.shimeoki.jwp.infra.db.inmemory.Database;
 import io.github.shimeoki.jwp.infra.db.inmemory.TagRepository;
 
-public final class LocalInmemoryWorker implements Worker<Provider> {
+public final class LocalInMemoryWorker implements Worker<Provider> {
 
     private final Database db; // TODO: change when jdbc
 
-    public LocalInmemoryWorker(final Database db) {
+    public LocalInMemoryWorker(final Database db) {
         this.db = Objects.requireNonNull(db);
     }
 

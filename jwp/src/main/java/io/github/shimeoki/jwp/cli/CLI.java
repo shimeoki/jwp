@@ -1,10 +1,7 @@
-package io.github.shimeoki.jwp;
+package io.github.shimeoki.jwp.cli;
 
 import java.util.Objects;
 
-import io.github.shimeoki.jwp.cli.Command;
-import io.github.shimeoki.jwp.cli.Root;
-import io.github.shimeoki.jwp.cli.Runner;
 import io.github.shimeoki.jwp.config.App;
 
 public final class CLI implements Runner {
