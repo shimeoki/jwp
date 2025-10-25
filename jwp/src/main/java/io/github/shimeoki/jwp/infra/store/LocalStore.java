@@ -67,10 +67,18 @@ public final class LocalStore implements Store {
         Files.delete(path(h));
     }
 
+    // TODO: check for hash names for every file in both methods below
+
     @Override
     public long count() throws IOException {
         try (final var files = Files.list(root)) {
             return files.count();
+        }
+    }
+
+    public void clear() throws IOException {
+        try (final var files = Files.list(root)) {
+            files.forEach((f) -> f.toFile().delete());
         }
     }
 }

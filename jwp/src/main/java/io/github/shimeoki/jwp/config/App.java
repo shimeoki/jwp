@@ -63,6 +63,12 @@ public final class App {
     }
 
     public void close() {
+        try {
+            store.clear();
+        } catch (final IOException e) {
+            throw new RuntimeException("failed to clear the store", e);
+        }
+
         db = null;
         store = null;
 
