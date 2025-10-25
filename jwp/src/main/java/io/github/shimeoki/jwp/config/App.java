@@ -2,13 +2,15 @@ package io.github.shimeoki.jwp.config;
 
 import java.util.Objects;
 
+import io.github.shimeoki.jwp.app.Worker;
+import io.github.shimeoki.jwp.config.workers.LocalInmemoryWorker;
 import io.github.shimeoki.jwp.infra.db.inmemory.Database;
 
 public final class App {
 
     private Config cfg;
     private Database db;
-    private Worker worker;
+    private Worker<Provider> worker;
 
     private Handlers handlers;
 
@@ -18,7 +20,7 @@ public final class App {
 
     public void open() {
         db = Database.open();
-        worker = new Worker(db);
+        worker = new LocalInmemoryWorker(db);
 
         handlers = Handlers.fromWorker(worker);
     }
