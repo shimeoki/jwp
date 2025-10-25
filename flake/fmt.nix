@@ -8,6 +8,14 @@
         treefmt = {
             programs = {
                 # keep-sorted start block=yes newline_separated=yes
+                deno = {
+                    enable = true;
+                    includes = [
+                        "deno.json"
+                        "README.md"
+                    ];
+                };
+
                 keep-sorted = {
                     enable = true;
                 };
