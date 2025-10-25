@@ -11,5 +11,7 @@ public final class Main {
 
         final var cli = new CLI(app);
         cli.run(args);
+
+        app.close();
     }
 }
