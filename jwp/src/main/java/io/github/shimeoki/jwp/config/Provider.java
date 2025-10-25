@@ -15,11 +15,11 @@ public final class Provider implements
         CreateTagProvider,
         DeleteTagProvider {
 
-    private final Repositories repos;
+    private final Storage storage;
     private final Transaction tx; // right now nulls are allowed
 
-    public Provider(final Repositories repos, final Transaction tx) {
-        this.repos = Objects.requireNonNull(repos);
+    public Provider(final Storage s, final Transaction tx) {
+        this.storage = Objects.requireNonNull(s);
         this.tx = tx;
     }
 
@@ -39,11 +39,11 @@ public final class Provider implements
 
     @Override
     public WallpaperRepository wallpaperRepository() {
-        return repos.wallpapers();
+        return storage.wallpapers();
     }
 
     @Override
     public TagRepository tagRepository() {
-        return repos.tags();
+        return storage.tags();
     }
 }

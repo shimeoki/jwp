@@ -1,9 +1,11 @@
 package io.github.shimeoki.jwp.config;
 
+import io.github.shimeoki.jwp.domain.repositories.Store;
 import io.github.shimeoki.jwp.domain.repositories.TagRepository;
 import io.github.shimeoki.jwp.domain.repositories.WallpaperRepository;
 
-public record Repositories(
+public record Storage(
         TagRepository tags,
-        WallpaperRepository wallpapers) {
+        WallpaperRepository wallpapers,
+        Store store) {
 }

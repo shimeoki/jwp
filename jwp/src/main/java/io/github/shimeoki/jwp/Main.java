@@ -9,10 +9,12 @@ public final class Main {
     public static void main(final String[] args) {
         final var cfg = Config.defaults();
         final var app = new App(cfg);
-
         final var cli = new CLI(app);
-        cli.run(args);
 
-        app.close();
+        try {
+            cli.run(args);
+        } finally {
+            app.close();
+        }
     }
 }
