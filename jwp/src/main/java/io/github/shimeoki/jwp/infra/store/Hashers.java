@@ -43,4 +43,8 @@ public final class Hashers {
             }
         };
     }
+
+    public static Hasher sha256() {
+        return fromAlgorithm(Algorithm.SHA256);
+    }
 }
