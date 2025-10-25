@@ -66,4 +66,11 @@ public final class LocalStore implements Store {
     public void delete(final Hash h) throws IOException {
         Files.delete(path(h));
     }
+
+    @Override
+    public long count() throws IOException {
+        try (final var files = Files.list(root)) {
+            return files.count();
+        }
+    }
 }

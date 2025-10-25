@@ -12,4 +12,6 @@ public interface Store {
     Hash create(InputStream img) throws IOException;
 
     void delete(Hash h) throws IOException;
+
+    long count() throws IOException;
 }
