@@ -39,7 +39,7 @@ public record Config(DB db, Store store) {
     }
 
     // rewrite of https://pkg.go.dev/os#UserConfigDir
-    private static String configDir() {
+    private static Path configDir() {
         Path root = null;
         switch (os()) {
             case WINDOWS:
@@ -68,12 +68,16 @@ public record Config(DB db, Store store) {
         }
 
         // TODO: change dir to wp when jdbc for data sharing
-        return root.resolve("jwp").toString();
+        return root.resolve("jwp");
+    }
+
+    private static String storePath() {
+        return configDir().resolve("store").toString();
     }
 
     public static Config defaults() {
         return new Config(
                 new DB(DB.Type.INMEMORY),
-                new Store(configDir(), Store.Algorithm.SHA256));
+                new Store(storePath(), Store.Algorithm.SHA256));
     }
 }
