@@ -31,7 +31,7 @@ public record Config(DB db, Store store) {
             return OS.DARWIN;
         } else if (os.contains("win")) {
             return OS.WINDOWS;
-        } else if (os.contains("nux")) {
+        } else if (os.contains("nux") || os.contains("nix")) {
             return OS.UNIX;
         } else {
             throw new IllegalStateException("unsupported os");
@@ -60,8 +60,6 @@ public record Config(DB db, Store store) {
                         System.getenv("HOME"),
                         "Library",
                         "Application Support");
-                break;
-            default:
                 break;
         }
 
