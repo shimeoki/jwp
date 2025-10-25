@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import io.github.shimeoki.jwp.app.Worker;
 import io.github.shimeoki.jwp.config.Provider;
-import io.github.shimeoki.jwp.config.Repositories;
+import io.github.shimeoki.jwp.config.Storage;
 import io.github.shimeoki.jwp.domain.repositories.Store;
 import io.github.shimeoki.jwp.infra.db.inmemory.Database;
 import io.github.shimeoki.jwp.infra.db.inmemory.TagRepository;
@@ -21,11 +21,11 @@ public final class LocalInMemoryWorker implements Worker<Provider> {
 
     @Override
     public Provider work() {
-        final var repos = new Repositories(
+        final var s = new Storage(
                 new TagRepository(db),
                 null, // TODO: add when wallpaper inmemory repo
                 store);
 
-        return new Provider(repos, null);
+        return new Provider(s, null);
     }
 }
