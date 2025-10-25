@@ -38,6 +38,10 @@ public final class App {
 
         try {
             store = new LocalStore(storeConfig.path(), hasher);
+            if (store.count() > 0) {
+                throw new IllegalArgumentException(
+                        "store is not empty; not supported with inmemory db");
+            }
         } catch (final IOException e) {
             throw new RuntimeException("failed to open store", e);
         }
