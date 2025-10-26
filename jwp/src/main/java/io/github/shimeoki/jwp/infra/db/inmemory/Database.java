@@ -213,6 +213,11 @@ public final class Database {
         return wallpaper.clone();
     }
 
+    public Collection<Wallpaper> getWallpapersByTagID(final ID id) {
+        return tagWallpapers.get(id).stream()
+                .map((wid) -> wallpapersByID.get(wid)).toList();
+    }
+
     public Collection<Wallpaper> getAllWallpapers() {
         return wallpapersByID.values().stream()
                 .map(Wallpaper::clone).collect(Collectors.toList());
