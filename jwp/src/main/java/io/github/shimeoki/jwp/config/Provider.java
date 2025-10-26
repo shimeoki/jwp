@@ -6,6 +6,11 @@ import io.github.shimeoki.jwp.app.actions.tagcreate.CreateTagProvider;
 import io.github.shimeoki.jwp.app.actions.tagdelete.DeleteTagProvider;
 import io.github.shimeoki.jwp.app.actions.taglist.ListTagsProvider;
 import io.github.shimeoki.jwp.app.actions.tagrename.RenameTagProvider;
+import io.github.shimeoki.jwp.app.actions.wallpapercreate.CreateWallpaperProvider;
+import io.github.shimeoki.jwp.app.actions.wallpaperdelete.DeleteWallpaperProvider;
+import io.github.shimeoki.jwp.app.actions.wallpaperfind.FindWallpaperProvider;
+import io.github.shimeoki.jwp.app.actions.wallpapershow.ShowWallpaperProvider;
+import io.github.shimeoki.jwp.domain.repositories.Store;
 import io.github.shimeoki.jwp.domain.repositories.TagRepository;
 import io.github.shimeoki.jwp.domain.repositories.WallpaperRepository;
 
@@ -13,7 +18,11 @@ public final class Provider implements
         RenameTagProvider,
         ListTagsProvider,
         CreateTagProvider,
-        DeleteTagProvider {
+        DeleteTagProvider,
+        CreateWallpaperProvider,
+        DeleteWallpaperProvider,
+        ShowWallpaperProvider,
+        FindWallpaperProvider {
 
     private final Storage storage;
     private final Transaction tx; // right now nulls are allowed
@@ -45,5 +54,10 @@ public final class Provider implements
     @Override
     public TagRepository tagRepository() {
         return storage.tags();
+    }
+
+    @Override
+    public Store store() {
+        return storage.store();
     }
 }

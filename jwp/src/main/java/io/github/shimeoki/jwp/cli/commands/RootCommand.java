@@ -9,6 +9,7 @@ public final class RootCommand extends Command {
         super("jwp");
         addCommand(new TagCommand(app));
         addCommand(new SessionCommand(this));
+        addCommand(new ImageCommand(app));
     }
 
     @Override
