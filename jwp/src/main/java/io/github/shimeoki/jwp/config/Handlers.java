@@ -22,13 +22,13 @@ public record Handlers(
 
     public static Handlers fromWorker(final Worker<Provider> w) {
         return new Handlers(
-                new CreateTagHandler(() -> w.work()),
-                new DeleteTagHandler(() -> w.work()),
-                new ListTagsHandler(() -> w.work()),
-                new RenameTagHandler(() -> w.work()),
-                new CreateWallpaperHandler(() -> w.work()),
-                new DeleteWallpaperHandler(() -> w.work()),
-                new ShowWallpaperHandler(() -> w.work()),
-                new FindWallpaperHandler(() -> w.work()));
+                new CreateTagHandler(w::work),
+                new DeleteTagHandler(w::work),
+                new ListTagsHandler(w::work),
+                new RenameTagHandler(w::work),
+                new CreateWallpaperHandler(w::work),
+                new DeleteWallpaperHandler(w::work),
+                new ShowWallpaperHandler(w::work),
+                new FindWallpaperHandler(w::work));
     }
 }
