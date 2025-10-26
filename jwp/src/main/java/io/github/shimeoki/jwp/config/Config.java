@@ -1,7 +1,6 @@
 package io.github.shimeoki.jwp.config;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import io.github.shimeoki.os4j.User;
 
 // TODO: check for nulls or use defaults instead of nulls
 
@@ -18,61 +17,8 @@ public record Config(DB db, Store store) {
         }
     }
 
-    private enum OS {
-        WINDOWS,
-        UNIX,
-        DARWIN,
-    }
-
-    // TODO: probably better to move somewhere else
-    private static OS os() {
-        final var os = System.getProperty("os.name").toLowerCase();
-        if (os.contains("darwin") || os.contains("mac")) {
-            return OS.DARWIN;
-        } else if (os.contains("win")) {
-            return OS.WINDOWS;
-        } else if (os.contains("nux") || os.contains("nix")) {
-            return OS.UNIX;
-        } else {
-            throw new IllegalStateException("unsupported os");
-        }
-    }
-
-    // rewrite of https://pkg.go.dev/os#UserConfigDir
-    private static Path configDir() {
-        Path root = null;
-        switch (os()) {
-            case WINDOWS:
-                root = Paths.get(System.getenv("AppData"));
-                break;
-            case UNIX:
-                final var xdg = System.getenv("XDG_CONFIG_HOME");
-
-                if (xdg == null) {
-                    root = Paths.get(System.getenv("HOME"), ".config");
-                } else {
-                    root = Paths.get(xdg);
-                }
-
-                break;
-            case DARWIN:
-                root = Paths.get(
-                        System.getenv("HOME"),
-                        "Library",
-                        "Application Support");
-                break;
-        }
-
-        if (root == null) {
-            throw new IllegalStateException("config dir is unavailable");
-        }
-
-        // TODO: change dir to wp when jdbc for data sharing
-        return root.resolve("jwp");
-    }
-
     private static String storePath() {
-        return configDir().resolve("store").toString();
+        return User.configDir().resolve("jwp", "store").toString();
     }
 
     public static Config defaults() {
