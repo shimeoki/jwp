@@ -4,6 +4,7 @@ import io.github.shimeoki.jwp.cli.Command;
 import io.github.shimeoki.jwp.cli.commands.image.CreateCommand;
 import io.github.shimeoki.jwp.cli.commands.image.DeleteCommand;
 import io.github.shimeoki.jwp.cli.commands.image.FindCommand;
+import io.github.shimeoki.jwp.cli.commands.image.ShowCommand;
 import io.github.shimeoki.jwp.config.App;
 
 public final class ImageCommand extends Command {
@@ -13,6 +14,7 @@ public final class ImageCommand extends Command {
         addCommand(new CreateCommand(app));
         addCommand(new DeleteCommand(app));
         addCommand(new FindCommand(app));
+        addCommand(new ShowCommand(app));
     }
 
     @Override
