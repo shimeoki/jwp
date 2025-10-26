@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
+import io.github.shimeoki.jio.TeeInputStream;
 import io.github.shimeoki.jwp.domain.repositories.Store;
 import io.github.shimeoki.jwp.domain.values.Hash;
 

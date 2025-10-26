@@ -1,4 +1,4 @@
-package io.github.shimeoki.jwp.infra.store;
+package io.github.shimeoki.jio;
 
 import java.io.FilterInputStream;
 import java.io.IOException;
