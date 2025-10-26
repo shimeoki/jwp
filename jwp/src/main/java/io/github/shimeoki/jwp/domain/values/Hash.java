@@ -67,6 +67,11 @@ public final class Hash implements Serializable, Comparable<Hash> {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(value);
+    }
+
+    @Override
     public int compareTo(final Hash other) {
         final var algo1 = algorithm().toString();
         final var algo2 = other.algorithm().toString();
