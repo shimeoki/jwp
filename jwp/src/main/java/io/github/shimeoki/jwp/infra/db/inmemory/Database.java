@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import io.github.shimeoki.jwp.domain.entities.Source;
 import io.github.shimeoki.jwp.domain.entities.Tag;
@@ -105,7 +104,7 @@ public final class Database {
 
     public Collection<Tag> getAllTags() {
         return tagsByID.values().stream()
-                .map(Tag::clone).collect(Collectors.toList());
+                .map(Tag::clone).toList();
     }
 
     public int getTagCount() {
@@ -151,7 +150,7 @@ public final class Database {
 
     public Collection<Source> getAllSources() {
         return sourcesByID.values().stream()
-                .map(Source::clone).collect(Collectors.toList());
+                .map(Source::clone).toList();
     }
 
     public int getSourceCount() {
@@ -220,7 +219,7 @@ public final class Database {
 
     public Collection<Wallpaper> getAllWallpapers() {
         return wallpapersByID.values().stream()
-                .map(Wallpaper::clone).collect(Collectors.toList());
+                .map(Wallpaper::clone).toList();
     }
 
     public int getWallpaperCount() {
