@@ -2,12 +2,16 @@ package io.github.shimeoki.jwp.config;
 
 import java.util.Objects;
 
+import io.github.shimeoki.jwp.app.actions.sourceadd.AddSourceProvider;
 import io.github.shimeoki.jwp.app.actions.sourcecreate.CreateSourceProvider;
 import io.github.shimeoki.jwp.app.actions.sourcedelete.DeleteSourceProvider;
 import io.github.shimeoki.jwp.app.actions.sourcelist.ListSourcesProvider;
+import io.github.shimeoki.jwp.app.actions.sourceremove.RemoveSourceProvider;
+import io.github.shimeoki.jwp.app.actions.tagadd.AddTagProvider;
 import io.github.shimeoki.jwp.app.actions.tagcreate.CreateTagProvider;
 import io.github.shimeoki.jwp.app.actions.tagdelete.DeleteTagProvider;
 import io.github.shimeoki.jwp.app.actions.taglist.ListTagsProvider;
+import io.github.shimeoki.jwp.app.actions.tagremove.RemoveTagProvider;
 import io.github.shimeoki.jwp.app.actions.tagrename.RenameTagProvider;
 import io.github.shimeoki.jwp.app.actions.wallpapercreate.CreateWallpaperProvider;
 import io.github.shimeoki.jwp.app.actions.wallpaperdelete.DeleteWallpaperProvider;
@@ -23,12 +27,16 @@ public final class Provider implements
         ListTagsProvider,
         CreateTagProvider,
         DeleteTagProvider,
+        AddTagProvider,
+        RemoveTagProvider,
         CreateWallpaperProvider,
         DeleteWallpaperProvider,
         ShowWallpaperProvider,
         FindWallpaperProvider,
         CreateSourceProvider,
         DeleteSourceProvider,
+        AddSourceProvider,
+        RemoveSourceProvider,
         ListSourcesProvider {
 
     private final Storage storage;
