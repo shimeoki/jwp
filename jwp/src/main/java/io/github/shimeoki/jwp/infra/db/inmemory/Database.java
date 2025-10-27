@@ -49,7 +49,7 @@ public final class Database {
         return instance;
     }
 
-    public void addTag(final Tag t) {
+    protected void addTag(final Tag t) {
         final var cloned = t.clone();
         final var id = t.id();
 
@@ -73,7 +73,7 @@ public final class Database {
         }
     }
 
-    public void removeTag(final ID id) {
+    protected void removeTag(final ID id) {
         // remove this tag from linked wallpapers
         for (final var wid : tagWallpapers.get(id)) {
             wallpapersByID.get(wid).removeTag(id);
@@ -84,7 +84,7 @@ public final class Database {
         tagWallpapers.remove(id);
     }
 
-    public Tag getTagByID(final ID id) {
+    protected Tag getTagByID(final ID id) {
         final var tag = tagsByID.get(id);
         if (tag == null) {
             return null;
@@ -93,7 +93,7 @@ public final class Database {
         return tag.clone();
     }
 
-    public Tag getTagByName(final Name n) {
+    protected Tag getTagByName(final Name n) {
         final var tag = tagsByName.get(n);
         if (tag == null) {
             return null;
@@ -102,16 +102,16 @@ public final class Database {
         return tag.clone();
     }
 
-    public Collection<Tag> getAllTags() {
+    protected Collection<Tag> getAllTags() {
         return tagsByID.values().stream()
                 .map(Tag::clone).toList();
     }
 
-    public int getTagCount() {
+    protected int getTagCount() {
         return tagsByID.size();
     }
 
-    public void addSource(final Source s) {
+    protected void addSource(final Source s) {
         final var cloned = s.clone();
         final var id = s.id();
 
@@ -129,7 +129,7 @@ public final class Database {
         }
     }
 
-    public void removeSource(final ID id) {
+    protected void removeSource(final ID id) {
         // remove this source from linked wallpapers
         for (final var wid : sourceWallpapers.get(id)) {
             wallpapersByID.get(wid).removeSource(id);
@@ -139,7 +139,7 @@ public final class Database {
         sourceWallpapers.remove(id);
     }
 
-    public Source getSourceByID(final ID id) {
+    protected Source getSourceByID(final ID id) {
         final var source = sourcesByID.get(id);
         if (source == null) {
             return null;
@@ -148,16 +148,16 @@ public final class Database {
         return source.clone();
     }
 
-    public Collection<Source> getAllSources() {
+    protected Collection<Source> getAllSources() {
         return sourcesByID.values().stream()
                 .map(Source::clone).toList();
     }
 
-    public int getSourceCount() {
+    protected int getSourceCount() {
         return sourcesByID.size();
     }
 
-    public void addWallpaper(final Wallpaper w) {
+    protected void addWallpaper(final Wallpaper w) {
         final var tags = new HashMap<ID, Tag>();
         final var sources = new HashMap<ID, Source>();
 
@@ -184,7 +184,7 @@ public final class Database {
         wallpapersByHash.put(hash, wallpaper);
     }
 
-    public void removeWallpaper(final ID id) {
+    protected void removeWallpaper(final ID id) {
         final var wallpaper = wallpapersByID.get(id);
 
         removeTags(wallpaper);
@@ -194,7 +194,7 @@ public final class Database {
         wallpapersByHash.remove(wallpaper.hash());
     }
 
-    public Wallpaper getWallpaperByID(final ID id) {
+    protected Wallpaper getWallpaperByID(final ID id) {
         final var wallpaper = wallpapersByID.get(id);
         if (wallpaper == null) {
             return null;
@@ -203,7 +203,7 @@ public final class Database {
         return wallpaper.clone();
     }
 
-    public Wallpaper getWallpaperByHash(final Hash h) {
+    protected Wallpaper getWallpaperByHash(final Hash h) {
         final var wallpaper = wallpapersByHash.get(h);
         if (wallpaper == null) {
             return null;
@@ -212,21 +212,21 @@ public final class Database {
         return wallpaper.clone();
     }
 
-    public Collection<Wallpaper> getWallpapersByTagID(final ID id) {
+    protected Collection<Wallpaper> getWallpapersByTagID(final ID id) {
         return tagWallpapers.get(id).stream()
                 .map((wid) -> wallpapersByID.get(wid)).toList();
     }
 
-    public Collection<Wallpaper> getAllWallpapers() {
+    protected Collection<Wallpaper> getAllWallpapers() {
         return wallpapersByID.values().stream()
                 .map(Wallpaper::clone).toList();
     }
 
-    public int getWallpaperCount() {
+    protected int getWallpaperCount() {
         return wallpapersByID.size();
     }
 
-    private void removeTags(final Wallpaper w) {
+    protected void removeTags(final Wallpaper w) {
         final var id = w.id();
         for (final var tag : w.tags()) {
             tagWallpapers.get(tag.id()).remove(id);
