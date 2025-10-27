@@ -222,7 +222,7 @@ public final class Database {
 
     protected Collection<Wallpaper> getWallpapersByTagID(final ID id) {
         return tagWallpapers.get(id).stream()
-                .map((wid) -> wallpapersByID.get(wid)).toList();
+                .map((wid) -> wallpapersByID.get(wid).clone()).toList();
     }
 
     protected Collection<Wallpaper> getAllWallpapers() {
@@ -270,7 +270,7 @@ public final class Database {
 
     protected Collection<Alias> getAliasesByWallpaperID(final ID id) {
         return wallpaperAliases.get(id).stream()
-                .map((aid) -> aliasesByID.get(aid)).toList();
+                .map((aid) -> aliasesByID.get(aid).clone()).toList();
     }
 
     protected Collection<Alias> getAllAliases() {
