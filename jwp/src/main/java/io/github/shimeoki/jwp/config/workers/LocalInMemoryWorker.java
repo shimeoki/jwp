@@ -7,6 +7,7 @@ import io.github.shimeoki.jwp.config.Provider;
 import io.github.shimeoki.jwp.config.Storage;
 import io.github.shimeoki.jwp.domain.repositories.Store;
 import io.github.shimeoki.jwp.infra.db.inmemory.Database;
+import io.github.shimeoki.jwp.infra.db.inmemory.SourceRepository;
 import io.github.shimeoki.jwp.infra.db.inmemory.TagRepository;
 import io.github.shimeoki.jwp.infra.db.inmemory.WallpaperRepository;
 
@@ -25,6 +26,7 @@ public final class LocalInMemoryWorker implements Worker<Provider> {
         final var s = new Storage(
                 new TagRepository(db),
                 new WallpaperRepository(db),
+                new SourceRepository(db),
                 store);
 
         return new Provider(s, null);
