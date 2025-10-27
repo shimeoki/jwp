@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import io.github.shimeoki.jwp.domain.entities.Alias;
 import io.github.shimeoki.jwp.domain.entities.Source;
 import io.github.shimeoki.jwp.domain.entities.Tag;
 import io.github.shimeoki.jwp.domain.entities.Wallpaper;
@@ -25,6 +26,9 @@ public final class Database {
     private final Map<ID, Wallpaper> wallpapersByID;
     private final Map<Hash, Wallpaper> wallpapersByHash;
 
+    private final Map<ID, Alias> aliasesByID;
+    private final Map<ID, Set<ID>> wallpaperAliases;
+
     private final Map<ID, Set<ID>> tagWallpapers;
     private final Map<ID, Set<ID>> sourceWallpapers;
 
@@ -37,8 +41,11 @@ public final class Database {
         wallpapersByID = new HashMap<>();
         wallpapersByHash = new HashMap<>();
 
+        aliasesByID = new HashMap<>();
+
         tagWallpapers = new HashMap<>();
         sourceWallpapers = new HashMap<>();
+        wallpaperAliases = new HashMap<>();
     }
 
     public static Database open() {
@@ -189,6 +196,7 @@ public final class Database {
 
         removeTags(wallpaper);
         removeSources(wallpaper);
+        removeAliases(id);
 
         wallpapersByID.remove(id);
         wallpapersByHash.remove(wallpaper.hash());
@@ -226,10 +234,64 @@ public final class Database {
         return wallpapersByID.size();
     }
 
-    protected void removeTags(final Wallpaper w) {
+    protected void addAlias(final Alias a) {
+        final var cloned = a.clone();
+        final var id = a.id();
+
+        final var stored = aliasesByID.get(id);
+        if (stored != null) {
+            wallpaperAliases.get(stored.wallpaperID()).remove(id);
+        } else {
+            wallpaperAliases.put(cloned.wallpaperID(), new HashSet<>());
+        }
+
+        aliasesByID.put(id, cloned);
+        wallpaperAliases.get(cloned.wallpaperID()).add(id);
+    }
+
+    protected void removeAlias(final ID id) {
+        final var a = aliasesByID.get(id);
+        if (a == null) {
+            return;
+        }
+
+        aliasesByID.remove(id);
+        wallpaperAliases.get(a.wallpaperID()).remove(id);
+    }
+
+    protected Alias getAliasByID(final ID id) {
+        final var alias = aliasesByID.get(id);
+        if (alias == null) {
+            return null;
+        }
+
+        return alias.clone();
+    }
+
+    protected Collection<Alias> getAliasesByWallpaperID(final ID id) {
+        return wallpaperAliases.get(id).stream()
+                .map((aid) -> aliasesByID.get(aid)).toList();
+    }
+
+    protected Collection<Alias> getAllAliases() {
+        return aliasesByID.values().stream()
+                .map(Alias::clone).toList();
+    }
+
+    protected int getAliasCount() {
+        return aliasesByID.size();
+    }
+
+    private void removeTags(final Wallpaper w) {
         final var id = w.id();
         for (final var tag : w.tags()) {
             tagWallpapers.get(tag.id()).remove(id);
+        }
+    }
+
+    private void removeAliases(final ID id) {
+        for (final var aid : wallpaperAliases.get(id)) {
+            aliasesByID.remove(aid);
         }
     }
 
