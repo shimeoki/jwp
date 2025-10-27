@@ -10,6 +10,7 @@ public final class RootCommand extends Command {
         addCommand(new TagCommand(app));
         addCommand(new SessionCommand(this));
         addCommand(new ImageCommand(app));
+        addCommand(new SourceCommand(app));
     }
 
     @Override
