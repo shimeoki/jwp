@@ -1,6 +1,9 @@
 package io.github.shimeoki.jwp.config;
 
 import io.github.shimeoki.jwp.app.Worker;
+import io.github.shimeoki.jwp.app.actions.sourcecreate.CreateSourceHandler;
+import io.github.shimeoki.jwp.app.actions.sourcedelete.DeleteSourceHandler;
+import io.github.shimeoki.jwp.app.actions.sourcelist.ListSourcesHandler;
 import io.github.shimeoki.jwp.app.actions.tagcreate.CreateTagHandler;
 import io.github.shimeoki.jwp.app.actions.tagdelete.DeleteTagHandler;
 import io.github.shimeoki.jwp.app.actions.taglist.ListTagsHandler;
@@ -18,7 +21,10 @@ public record Handlers(
         CreateWallpaperHandler createWallpaper,
         DeleteWallpaperHandler deleteWallpaper,
         ShowWallpaperHandler showWallpaper,
-        FindWallpaperHandler findWallpaper) {
+        FindWallpaperHandler findWallpaper,
+        CreateSourceHandler createSource,
+        DeleteSourceHandler deleteSource,
+        ListSourcesHandler listSources) {
 
     public static Handlers fromWorker(final Worker<Provider> w) {
         return new Handlers(
@@ -29,6 +35,9 @@ public record Handlers(
                 new CreateWallpaperHandler(w::work),
                 new DeleteWallpaperHandler(w::work),
                 new ShowWallpaperHandler(w::work),
-                new FindWallpaperHandler(w::work));
+                new FindWallpaperHandler(w::work),
+                new CreateSourceHandler(w::work),
+                new DeleteSourceHandler(w::work),
+                new ListSourcesHandler(w::work));
     }
 }
