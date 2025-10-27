@@ -1,9 +1,11 @@
 package io.github.shimeoki.jwp.cli.commands;
 
 import io.github.shimeoki.jwp.cli.Command;
+import io.github.shimeoki.jwp.cli.commands.source.AddCommand;
 import io.github.shimeoki.jwp.cli.commands.source.CreateCommand;
 import io.github.shimeoki.jwp.cli.commands.source.DeleteCommand;
 import io.github.shimeoki.jwp.cli.commands.source.ListCommand;
+import io.github.shimeoki.jwp.cli.commands.source.RemoveCommand;
 import io.github.shimeoki.jwp.config.App;
 
 public final class SourceCommand extends Command {
@@ -13,6 +15,8 @@ public final class SourceCommand extends Command {
         addCommand(new CreateCommand(app));
         addCommand(new DeleteCommand(app));
         addCommand(new ListCommand(app));
+        addCommand(new AddCommand(app));
+        addCommand(new RemoveCommand(app));
     }
 
     @Override
