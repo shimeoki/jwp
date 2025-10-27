@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import io.github.shimeoki.jwp.domain.entities.Alias;
 import io.github.shimeoki.jwp.domain.entities.Source;
 import io.github.shimeoki.jwp.domain.entities.Tag;
 import io.github.shimeoki.jwp.domain.entities.Wallpaper;
@@ -25,6 +26,9 @@ public final class Database {
     private final Map<ID, Wallpaper> wallpapersByID;
     private final Map<Hash, Wallpaper> wallpapersByHash;
 
+    private final Map<ID, Alias> aliasesByID;
+    private final Map<ID, Set<ID>> wallpaperAliases;
+
     private final Map<ID, Set<ID>> tagWallpapers;
     private final Map<ID, Set<ID>> sourceWallpapers;
 
@@ -37,8 +41,11 @@ public final class Database {
         wallpapersByID = new HashMap<>();
         wallpapersByHash = new HashMap<>();
 
+        aliasesByID = new HashMap<>();
+
         tagWallpapers = new HashMap<>();
         sourceWallpapers = new HashMap<>();
+        wallpaperAliases = new HashMap<>();
     }
 
     public static Database open() {
@@ -49,7 +56,7 @@ public final class Database {
         return instance;
     }
 
-    public void addTag(final Tag t) {
+    protected void addTag(final Tag t) {
         final var cloned = t.clone();
         final var id = t.id();
 
@@ -73,7 +80,7 @@ public final class Database {
         }
     }
 
-    public void removeTag(final ID id) {
+    protected void removeTag(final ID id) {
         // remove this tag from linked wallpapers
         for (final var wid : tagWallpapers.get(id)) {
             wallpapersByID.get(wid).removeTag(id);
@@ -84,7 +91,7 @@ public final class Database {
         tagWallpapers.remove(id);
     }
 
-    public Tag getTagByID(final ID id) {
+    protected Tag getTagByID(final ID id) {
         final var tag = tagsByID.get(id);
         if (tag == null) {
             return null;
@@ -93,7 +100,7 @@ public final class Database {
         return tag.clone();
     }
 
-    public Tag getTagByName(final Name n) {
+    protected Tag getTagByName(final Name n) {
         final var tag = tagsByName.get(n);
         if (tag == null) {
             return null;
@@ -102,16 +109,16 @@ public final class Database {
         return tag.clone();
     }
 
-    public Collection<Tag> getAllTags() {
+    protected Collection<Tag> getAllTags() {
         return tagsByID.values().stream()
                 .map(Tag::clone).toList();
     }
 
-    public int getTagCount() {
+    protected int getTagCount() {
         return tagsByID.size();
     }
 
-    public void addSource(final Source s) {
+    protected void addSource(final Source s) {
         final var cloned = s.clone();
         final var id = s.id();
 
@@ -129,7 +136,7 @@ public final class Database {
         }
     }
 
-    public void removeSource(final ID id) {
+    protected void removeSource(final ID id) {
         // remove this source from linked wallpapers
         for (final var wid : sourceWallpapers.get(id)) {
             wallpapersByID.get(wid).removeSource(id);
@@ -139,7 +146,7 @@ public final class Database {
         sourceWallpapers.remove(id);
     }
 
-    public Source getSourceByID(final ID id) {
+    protected Source getSourceByID(final ID id) {
         final var source = sourcesByID.get(id);
         if (source == null) {
             return null;
@@ -148,16 +155,16 @@ public final class Database {
         return source.clone();
     }
 
-    public Collection<Source> getAllSources() {
+    protected Collection<Source> getAllSources() {
         return sourcesByID.values().stream()
                 .map(Source::clone).toList();
     }
 
-    public int getSourceCount() {
+    protected int getSourceCount() {
         return sourcesByID.size();
     }
 
-    public void addWallpaper(final Wallpaper w) {
+    protected void addWallpaper(final Wallpaper w) {
         final var tags = new HashMap<ID, Tag>();
         final var sources = new HashMap<ID, Source>();
 
@@ -184,17 +191,18 @@ public final class Database {
         wallpapersByHash.put(hash, wallpaper);
     }
 
-    public void removeWallpaper(final ID id) {
+    protected void removeWallpaper(final ID id) {
         final var wallpaper = wallpapersByID.get(id);
 
         removeTags(wallpaper);
         removeSources(wallpaper);
+        removeAliases(id);
 
         wallpapersByID.remove(id);
         wallpapersByHash.remove(wallpaper.hash());
     }
 
-    public Wallpaper getWallpaperByID(final ID id) {
+    protected Wallpaper getWallpaperByID(final ID id) {
         final var wallpaper = wallpapersByID.get(id);
         if (wallpaper == null) {
             return null;
@@ -203,7 +211,7 @@ public final class Database {
         return wallpaper.clone();
     }
 
-    public Wallpaper getWallpaperByHash(final Hash h) {
+    protected Wallpaper getWallpaperByHash(final Hash h) {
         final var wallpaper = wallpapersByHash.get(h);
         if (wallpaper == null) {
             return null;
@@ -212,24 +220,78 @@ public final class Database {
         return wallpaper.clone();
     }
 
-    public Collection<Wallpaper> getWallpapersByTagID(final ID id) {
+    protected Collection<Wallpaper> getWallpapersByTagID(final ID id) {
         return tagWallpapers.get(id).stream()
-                .map((wid) -> wallpapersByID.get(wid)).toList();
+                .map((wid) -> wallpapersByID.get(wid).clone()).toList();
     }
 
-    public Collection<Wallpaper> getAllWallpapers() {
+    protected Collection<Wallpaper> getAllWallpapers() {
         return wallpapersByID.values().stream()
                 .map(Wallpaper::clone).toList();
     }
 
-    public int getWallpaperCount() {
+    protected int getWallpaperCount() {
         return wallpapersByID.size();
+    }
+
+    protected void addAlias(final Alias a) {
+        final var cloned = a.clone();
+        final var id = a.id();
+
+        final var stored = aliasesByID.get(id);
+        if (stored != null) {
+            wallpaperAliases.get(stored.wallpaperID()).remove(id);
+        } else {
+            wallpaperAliases.put(cloned.wallpaperID(), new HashSet<>());
+        }
+
+        aliasesByID.put(id, cloned);
+        wallpaperAliases.get(cloned.wallpaperID()).add(id);
+    }
+
+    protected void removeAlias(final ID id) {
+        final var a = aliasesByID.get(id);
+        if (a == null) {
+            return;
+        }
+
+        aliasesByID.remove(id);
+        wallpaperAliases.get(a.wallpaperID()).remove(id);
+    }
+
+    protected Alias getAliasByID(final ID id) {
+        final var alias = aliasesByID.get(id);
+        if (alias == null) {
+            return null;
+        }
+
+        return alias.clone();
+    }
+
+    protected Collection<Alias> getAliasesByWallpaperID(final ID id) {
+        return wallpaperAliases.get(id).stream()
+                .map((aid) -> aliasesByID.get(aid).clone()).toList();
+    }
+
+    protected Collection<Alias> getAllAliases() {
+        return aliasesByID.values().stream()
+                .map(Alias::clone).toList();
+    }
+
+    protected int getAliasCount() {
+        return aliasesByID.size();
     }
 
     private void removeTags(final Wallpaper w) {
         final var id = w.id();
         for (final var tag : w.tags()) {
             tagWallpapers.get(tag.id()).remove(id);
+        }
+    }
+
+    private void removeAliases(final ID id) {
+        for (final var aid : wallpaperAliases.get(id)) {
+            aliasesByID.remove(aid);
         }
     }
 
