@@ -5,6 +5,7 @@ import io.github.shimeoki.jwp.cli.commands.tag.AddCommand;
 import io.github.shimeoki.jwp.cli.commands.tag.CreateCommand;
 import io.github.shimeoki.jwp.cli.commands.tag.DeleteCommand;
 import io.github.shimeoki.jwp.cli.commands.tag.ListCommand;
+import io.github.shimeoki.jwp.cli.commands.tag.RemoveCommand;
 import io.github.shimeoki.jwp.cli.commands.tag.RenameCommand;
 import io.github.shimeoki.jwp.config.App;
 
@@ -17,6 +18,7 @@ public final class TagCommand extends Command {
         addCommand(new DeleteCommand(app));
         addCommand(new RenameCommand(app));
         addCommand(new AddCommand(app));
+        addCommand(new RemoveCommand(app));
     }
 
     @Override
