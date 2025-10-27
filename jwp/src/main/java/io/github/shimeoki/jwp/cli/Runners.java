@@ -14,4 +14,22 @@ public final class Runners {
             }
         };
     }
+
+    public static Runner rangeArgs(final int min, final int max) {
+        if (max < min) {
+            throw new IllegalArgumentException("'max' is less than 'min'");
+        }
+
+        if (min < 0) {
+            throw new IllegalArgumentException("'min' shouldn't be negative");
+        }
+
+        return (args) -> {
+            if (args.length < min || args.length > max) {
+                throw new IllegalArgumentException(String.format(
+                        "expected between %d and %d args, got %d",
+                        min, max, args.length));
+            }
+        };
+    }
 }
