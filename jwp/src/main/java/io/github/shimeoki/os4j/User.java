@@ -30,7 +30,7 @@ public final class User {
         }
 
         if (root == null) {
-            throw new IllegalStateException("config dir is unavailable");
+            throw new UnavailableDirectoryException("configuration");
         }
 
         return root;

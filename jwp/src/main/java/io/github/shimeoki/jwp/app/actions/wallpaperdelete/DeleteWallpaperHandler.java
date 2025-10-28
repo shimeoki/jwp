@@ -2,7 +2,9 @@ package io.github.shimeoki.jwp.app.actions.wallpaperdelete;
 
 import java.util.Objects;
 
+import io.github.shimeoki.jwp.app.ApplicationException;
 import io.github.shimeoki.jwp.app.Handler;
+import io.github.shimeoki.jwp.app.NotFoundException;
 import io.github.shimeoki.jwp.domain.values.Hash;
 
 public final class DeleteWallpaperHandler
@@ -20,7 +22,8 @@ public final class DeleteWallpaperHandler
             final var h = Hash.fromString(cmd.hash());
 
             final var w = p.wallpaperRepository().findByHash(h).orElseThrow(
-                    () -> new IllegalArgumentException("wallpaper not found"));
+                    () -> new NotFoundException(
+                            "wallpaper", "hash", h.toString()));
 
             p.wallpaperRepository().delete(w.id());
             p.store().delete(h);
@@ -28,8 +31,7 @@ public final class DeleteWallpaperHandler
 
             return new DeleteWallpaperResult();
         } catch (final Exception e) {
-            // TODO: handle
-            return null;
+            throw new ApplicationException("wallpaperdelete", e);
         }
     }
 }

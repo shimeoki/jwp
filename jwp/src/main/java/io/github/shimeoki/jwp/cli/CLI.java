@@ -20,7 +20,11 @@ public final class CLI implements Runner {
     }
 
     @Override
-    public void run(String[] args) {
-        root.execute(args);
+    public void run(final String[] args) {
+        try {
+            root.execute(args);
+        } catch (final Exception e) {
+            System.err.printf("error: %s\n", e.getMessage());
+        }
     }
 }

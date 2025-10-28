@@ -2,7 +2,10 @@ package io.github.shimeoki.jwp.app.actions.tagremove;
 
 import java.util.Objects;
 
+import io.github.shimeoki.jwp.app.ApplicationException;
 import io.github.shimeoki.jwp.app.Handler;
+import io.github.shimeoki.jwp.app.InvalidRelationException;
+import io.github.shimeoki.jwp.app.NotFoundException;
 import io.github.shimeoki.jwp.domain.values.Hash;
 import io.github.shimeoki.jwp.domain.values.Name;
 
@@ -22,13 +25,15 @@ public final class RemoveTagHandler
             final var n = new Name(cmd.tagName());
 
             final var w = p.wallpaperRepository().findByHash(h).orElseThrow(
-                    () -> new IllegalArgumentException("wallpaper not found"));
+                    () -> new NotFoundException(
+                            "wallpaper", "hash", h.toString()));
 
             final var t = p.tagRepository().findByName(n).orElseThrow(
-                    () -> new IllegalArgumentException("tag not found"));
+                    () -> new NotFoundException(
+                            "tag", "name", n.toString()));
 
             if (w.getTag(t.id()) == null) {
-                throw new IllegalArgumentException("tag not attached");
+                throw new InvalidRelationException("tag", false);
             }
 
             w.removeTag(t.id());
@@ -38,8 +43,7 @@ public final class RemoveTagHandler
 
             return new RemoveTagResult();
         } catch (final Exception e) {
-            // TODO: handle
-            return null;
+            throw new ApplicationException("tagremove", e);
         }
     }
 }

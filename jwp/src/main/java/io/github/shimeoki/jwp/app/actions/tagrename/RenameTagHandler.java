@@ -2,7 +2,9 @@ package io.github.shimeoki.jwp.app.actions.tagrename;
 
 import java.util.Objects;
 
+import io.github.shimeoki.jwp.app.ApplicationException;
 import io.github.shimeoki.jwp.app.Handler;
+import io.github.shimeoki.jwp.app.NotFoundException;
 import io.github.shimeoki.jwp.domain.values.Name;
 
 public final class RenameTagHandler
@@ -22,7 +24,8 @@ public final class RenameTagHandler
 
             final var before = new Name(cmd.before());
             final var tag = tags.findByName(before).orElseThrow(
-                    () -> new IllegalArgumentException("tag not found"));
+                    () -> new NotFoundException(
+                            "tag", "name", before.toString()));
 
             final var after = new Name(cmd.after());
             tag.rename(after);
@@ -45,8 +48,7 @@ public final class RenameTagHandler
 
             return new RenameTagResult();
         } catch (final Exception e) {
-            // TODO: handle
-            return null;
+            throw new ApplicationException("tagrename", e);
         }
     }
 }

@@ -2,7 +2,9 @@ package io.github.shimeoki.jwp.app.actions.aliasadd;
 
 import java.util.Objects;
 
+import io.github.shimeoki.jwp.app.ApplicationException;
 import io.github.shimeoki.jwp.app.Handler;
+import io.github.shimeoki.jwp.app.NotFoundException;
 import io.github.shimeoki.jwp.domain.entities.Alias;
 import io.github.shimeoki.jwp.domain.values.Hash;
 import io.github.shimeoki.jwp.domain.values.Name;
@@ -22,7 +24,8 @@ public final class AddAliasHandler
             final var h = Hash.fromString(cmd.wallpaperHash());
 
             final var w = p.wallpaperRepository().findByHash(h).orElseThrow(
-                    () -> new IllegalArgumentException("wallpaper not found"));
+                    () -> new NotFoundException(
+                            "wallpaper", "hash", h.toString()));
 
             final var a = new Alias(w.id(), new Name(cmd.aliasName()));
 
@@ -31,8 +34,7 @@ public final class AddAliasHandler
 
             return new AddAliasResult();
         } catch (final Exception e) {
-            // TODO: handle
-            return null;
+            throw new ApplicationException("aliasadd", e);
         }
     }
 }

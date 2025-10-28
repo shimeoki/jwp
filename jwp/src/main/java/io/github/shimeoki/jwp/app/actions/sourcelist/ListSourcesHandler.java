@@ -2,6 +2,7 @@ package io.github.shimeoki.jwp.app.actions.sourcelist;
 
 import java.util.Objects;
 
+import io.github.shimeoki.jwp.app.ApplicationException;
 import io.github.shimeoki.jwp.app.Handler;
 
 public final class ListSourcesHandler
@@ -23,8 +24,7 @@ public final class ListSourcesHandler
                             s.link()))
                     .toList());
         } catch (final Exception e) {
-            // TODO: handle
-            return null;
+            throw new ApplicationException("sourcelist", e);
         }
     }
 }

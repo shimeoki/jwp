@@ -2,7 +2,9 @@ package io.github.shimeoki.jwp.app.actions.tagdelete;
 
 import java.util.Objects;
 
+import io.github.shimeoki.jwp.app.ApplicationException;
 import io.github.shimeoki.jwp.app.Handler;
+import io.github.shimeoki.jwp.app.NotFoundException;
 import io.github.shimeoki.jwp.domain.values.Name;
 
 public final class DeleteTagHandler
@@ -21,15 +23,15 @@ public final class DeleteTagHandler
 
             final var name = new Name(cmd.name());
             final var tag = tags.findByName(name).orElseThrow(
-                    () -> new IllegalArgumentException("tag not found"));
+                    () -> new NotFoundException(
+                            "tag", "name", name.toString()));
 
             tags.delete(tag.id());
             p.commit();
 
             return new DeleteTagResult();
         } catch (final Exception e) {
-            // TODO: handle
-            return null;
+            throw new ApplicationException("tagdelete", e);
         }
     }
 }
