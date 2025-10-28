@@ -18,7 +18,7 @@ public enum Algorithm {
             case "md5":
                 return MD5;
             default:
-                throw new IllegalArgumentException("invalid algorithm");
+                throw new InvalidAlgorithmException(algorithm);
         }
     }
 
