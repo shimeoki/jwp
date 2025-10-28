@@ -2,6 +2,8 @@ package io.github.shimeoki.jwp.app.actions.wallpapercreate;
 
 import java.util.Objects;
 
+import io.github.shimeoki.jwp.app.AlreadyExistsException;
+import io.github.shimeoki.jwp.app.ApplicationException;
 import io.github.shimeoki.jwp.app.Handler;
 import io.github.shimeoki.jwp.domain.entities.Wallpaper;
 import io.github.shimeoki.jwp.domain.values.Format;
@@ -21,7 +23,8 @@ public final class CreateWallpaperHandler
             final var h = p.store().create(cmd.image());
 
             p.wallpaperRepository().findByHash(h).ifPresent((_) -> {
-                throw new IllegalArgumentException("wallpaper already exists");
+                throw new AlreadyExistsException(
+                        "wallpaper", "hash", h.toString());
             });
 
             final var f = Format.fromExtension(cmd.format());
@@ -32,8 +35,7 @@ public final class CreateWallpaperHandler
 
             return new CreateWallpaperResult(h.toString());
         } catch (final Exception e) {
-            // TODO: handle
-            return null;
+            throw new ApplicationException("wallpapercreate", e);
         }
     }
 }

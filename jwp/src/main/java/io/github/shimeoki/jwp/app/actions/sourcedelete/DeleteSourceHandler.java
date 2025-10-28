@@ -2,7 +2,9 @@ package io.github.shimeoki.jwp.app.actions.sourcedelete;
 
 import java.util.Objects;
 
+import io.github.shimeoki.jwp.app.ApplicationException;
 import io.github.shimeoki.jwp.app.Handler;
+import io.github.shimeoki.jwp.app.NotFoundException;
 import io.github.shimeoki.jwp.domain.values.ID;
 
 public final class DeleteSourceHandler
@@ -20,15 +22,15 @@ public final class DeleteSourceHandler
             final var id = ID.fromString(cmd.id());
 
             final var s = p.sourceRepository().findByID(id).orElseThrow(
-                    () -> new IllegalArgumentException("source not found"));
+                    () -> new NotFoundException(
+                            "source", "id", id.toString()));
 
             p.sourceRepository().delete(s.id());
             p.commit();
 
             return new DeleteSourceResult();
         } catch (final Exception e) {
-            // TODO: handle
-            return null;
+            throw new ApplicationException("sourcedelete", e);
         }
     }
 }

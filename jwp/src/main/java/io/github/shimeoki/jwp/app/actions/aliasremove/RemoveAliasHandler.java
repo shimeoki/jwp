@@ -2,7 +2,9 @@ package io.github.shimeoki.jwp.app.actions.aliasremove;
 
 import java.util.Objects;
 
+import io.github.shimeoki.jwp.app.ApplicationException;
 import io.github.shimeoki.jwp.app.Handler;
+import io.github.shimeoki.jwp.app.NotFoundException;
 import io.github.shimeoki.jwp.domain.values.Hash;
 import io.github.shimeoki.jwp.domain.values.Name;
 
@@ -21,9 +23,10 @@ public final class RemoveAliasHandler
             final var h = Hash.fromString(cmd.wallpaperHash());
 
             final var w = p.wallpaperRepository().findByHash(h).orElseThrow(
-                    () -> new IllegalArgumentException("wallpaper not found"));
+                    () -> new NotFoundException(
+                            "wallpaper", "hash", h.toString()));
 
-            // NOTE: probably there should be a contstraint to make unique
+            // NOTE: probably there should be a constraint to make unique
             // aliases by name for a wallpaper, but works for now
 
             final var n = new Name(cmd.aliasName());
@@ -39,10 +42,9 @@ public final class RemoveAliasHandler
                 }
             }
 
-            throw new IllegalArgumentException("alias not found");
+            throw new NotFoundException("alias", "name", n.toString());
         } catch (final Exception e) {
-            // TODO: handle
-            return null;
+            throw new ApplicationException("aliasremove", e);
         }
     }
 }

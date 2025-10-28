@@ -2,7 +2,9 @@ package io.github.shimeoki.jwp.app.actions.aliaslist;
 
 import java.util.Objects;
 
+import io.github.shimeoki.jwp.app.ApplicationException;
 import io.github.shimeoki.jwp.app.Handler;
+import io.github.shimeoki.jwp.app.InvalidRelationException;
 
 public final class ListAliasesHandler
         implements Handler<ListAliasesQuery, ListAliasesResult> {
@@ -22,7 +24,7 @@ public final class ListAliasesHandler
                 final var wid = a.wallpaperID();
 
                 final var w = p.wallpaperRepository().findByID(wid).orElseThrow(
-                        () -> new IllegalStateException("invalid wallpaper id"));
+                        () -> new InvalidRelationException("alias", false));
 
                 return String.format("%s -> %s",
                         a.name().toString(),
@@ -31,8 +33,7 @@ public final class ListAliasesHandler
 
             return new ListAliasesResult(lines);
         } catch (final Exception e) {
-            // TODO: handle
-            return null;
+            throw new ApplicationException("aliaslist", e);
         }
     }
 }
