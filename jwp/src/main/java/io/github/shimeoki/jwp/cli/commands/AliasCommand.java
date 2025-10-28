@@ -2,6 +2,7 @@ package io.github.shimeoki.jwp.cli.commands;
 
 import io.github.shimeoki.jwp.cli.Command;
 import io.github.shimeoki.jwp.cli.commands.alias.AddCommand;
+import io.github.shimeoki.jwp.cli.commands.alias.ListCommand;
 import io.github.shimeoki.jwp.cli.commands.alias.RemoveCommand;
 import io.github.shimeoki.jwp.config.App;
 
@@ -11,6 +12,7 @@ public final class AliasCommand extends Command {
         super("alias");
         addCommand(new AddCommand(app));
         addCommand(new RemoveCommand(app));
+        addCommand(new ListCommand(app));
     }
 
     @Override
