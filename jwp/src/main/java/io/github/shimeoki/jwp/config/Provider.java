@@ -2,6 +2,9 @@ package io.github.shimeoki.jwp.config;
 
 import java.util.Objects;
 
+import io.github.shimeoki.jwp.app.actions.aliasadd.AddAliasProvider;
+import io.github.shimeoki.jwp.app.actions.aliaslist.ListAliasesProvider;
+import io.github.shimeoki.jwp.app.actions.aliasremove.RemoveAliasProvider;
 import io.github.shimeoki.jwp.app.actions.sourceadd.AddSourceProvider;
 import io.github.shimeoki.jwp.app.actions.sourcecreate.CreateSourceProvider;
 import io.github.shimeoki.jwp.app.actions.sourcedelete.DeleteSourceProvider;
@@ -17,6 +20,7 @@ import io.github.shimeoki.jwp.app.actions.wallpapercreate.CreateWallpaperProvide
 import io.github.shimeoki.jwp.app.actions.wallpaperdelete.DeleteWallpaperProvider;
 import io.github.shimeoki.jwp.app.actions.wallpaperfind.FindWallpaperProvider;
 import io.github.shimeoki.jwp.app.actions.wallpapershow.ShowWallpaperProvider;
+import io.github.shimeoki.jwp.domain.repositories.AliasRepository;
 import io.github.shimeoki.jwp.domain.repositories.SourceRepository;
 import io.github.shimeoki.jwp.domain.repositories.Store;
 import io.github.shimeoki.jwp.domain.repositories.TagRepository;
@@ -37,7 +41,10 @@ public final class Provider implements
         DeleteSourceProvider,
         AddSourceProvider,
         RemoveSourceProvider,
-        ListSourcesProvider {
+        ListSourcesProvider,
+        AddAliasProvider,
+        RemoveAliasProvider,
+        ListAliasesProvider {
 
     private final Storage storage;
     private final Transaction tx; // right now nulls are allowed
@@ -79,5 +86,10 @@ public final class Provider implements
     @Override
     public SourceRepository sourceRepository() {
         return storage.sources();
+    }
+
+    @Override
+    public AliasRepository aliasRepository() {
+        return storage.aliases();
     }
 }
