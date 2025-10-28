@@ -9,8 +9,7 @@ public final class Runners {
 
         return (args) -> {
             if (args.length != n) {
-                throw new IllegalArgumentException(String.format(
-                        "expected %d args, got %d", n, args.length));
+                throw new InvalidArgsException(n, args.length);
             }
         };
     }
@@ -26,9 +25,7 @@ public final class Runners {
 
         return (args) -> {
             if (args.length < min || args.length > max) {
-                throw new IllegalArgumentException(String.format(
-                        "expected between %d and %d args, got %d",
-                        min, max, args.length));
+                throw new InvalidArgsException(min, max, args.length);
             }
         };
     }
