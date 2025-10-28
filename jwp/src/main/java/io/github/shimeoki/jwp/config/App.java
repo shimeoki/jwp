@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import io.github.shimeoki.jwp.app.Worker;
 import io.github.shimeoki.jwp.config.workers.LocalInMemoryWorker;
+import io.github.shimeoki.jwp.domain.values.InvalidAlgorithmException;
 import io.github.shimeoki.jwp.infra.db.inmemory.Database;
 import io.github.shimeoki.jwp.infra.store.Hasher;
 import io.github.shimeoki.jwp.infra.store.Hashers;
@@ -33,7 +34,8 @@ public final class App {
         if (storeConfig.algorithm() == Config.Store.Algorithm.SHA256) {
             hasher = Hashers.sha256();
         } else {
-            throw new IllegalArgumentException("unsupported algorithm");
+            throw new InvalidAlgorithmException(
+                    storeConfig.algorithm().toString());
         }
 
         try {
