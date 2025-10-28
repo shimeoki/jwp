@@ -44,7 +44,7 @@ public final class Alias implements Cloneable {
 
     private void validate() {
         if (createdAt.after(updatedAt)) {
-            throw new IllegalStateException("created is after updated");
+            throw new InvalidTimestampsException(createdAt, updatedAt);
         }
     }
 
