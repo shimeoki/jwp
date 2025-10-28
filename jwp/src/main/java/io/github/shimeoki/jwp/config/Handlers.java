@@ -1,6 +1,9 @@
 package io.github.shimeoki.jwp.config;
 
 import io.github.shimeoki.jwp.app.Worker;
+import io.github.shimeoki.jwp.app.actions.aliasadd.AddAliasHandler;
+import io.github.shimeoki.jwp.app.actions.aliaslist.ListAliasesHandler;
+import io.github.shimeoki.jwp.app.actions.aliasremove.RemoveAliasHandler;
 import io.github.shimeoki.jwp.app.actions.sourceadd.AddSourceHandler;
 import io.github.shimeoki.jwp.app.actions.sourcecreate.CreateSourceHandler;
 import io.github.shimeoki.jwp.app.actions.sourcedelete.DeleteSourceHandler;
@@ -32,7 +35,10 @@ public record Handlers(
         DeleteSourceHandler deleteSource,
         AddSourceHandler addSource,
         RemoveSourceHandler removeSource,
-        ListSourcesHandler listSources) {
+        ListSourcesHandler listSources,
+        AddAliasHandler addAlias,
+        RemoveAliasHandler removeAlias,
+        ListAliasesHandler listAliases) {
 
     public static Handlers fromWorker(final Worker<Provider> w) {
         return new Handlers(
@@ -50,6 +56,9 @@ public record Handlers(
                 new DeleteSourceHandler(w::work),
                 new AddSourceHandler(w::work),
                 new RemoveSourceHandler(w::work),
-                new ListSourcesHandler(w::work));
+                new ListSourcesHandler(w::work),
+                new AddAliasHandler(w::work),
+                new RemoveAliasHandler(w::work),
+                new ListAliasesHandler(w::work));
     }
 }
