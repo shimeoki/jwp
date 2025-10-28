@@ -11,6 +11,7 @@ public final class RootCommand extends Command {
         addCommand(new SessionCommand(this));
         addCommand(new ImageCommand(app));
         addCommand(new SourceCommand(app));
+        addCommand(new AliasCommand(app));
     }
 
     @Override
