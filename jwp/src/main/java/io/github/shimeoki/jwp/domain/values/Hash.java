@@ -81,7 +81,7 @@ public final class Hash implements Serializable, Comparable<Hash> {
     public static Hash fromString(final String value) {
         final var parts = Objects.requireNonNull(value).split("-");
         if (parts.length != 2) {
-            throw new IllegalArgumentException("invalid hash value");
+            throw new InvalidHashException(value);
         }
 
         return new Hash(Algorithm.fromString(parts[0]), parts[1]);
