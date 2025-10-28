@@ -26,8 +26,6 @@ public final class ListTagsHandler
                     .map(Name::toString)
                     .toArray(String[]::new);
 
-            p.commit();
-
             return new ListTagsResult(names);
         } catch (final Exception e) {
             throw new ApplicationException("taglist", e);
