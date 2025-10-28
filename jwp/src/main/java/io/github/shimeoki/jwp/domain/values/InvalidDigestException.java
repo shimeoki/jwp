@@ -7,7 +7,7 @@ public class InvalidDigestException extends RuntimeException {
             final String digest,
             final String regex) {
 
-        super(String.format("expected %s for %s, got %s",
+        super(String.format("expected %s for %s, got '%s'",
                 regex, algorithm, digest));
     }
 }
