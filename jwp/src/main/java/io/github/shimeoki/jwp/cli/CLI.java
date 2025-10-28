@@ -20,7 +20,7 @@ public final class CLI implements Runner {
     }
 
     @Override
-    public void run(String[] args) {
+    public void run(final String[] args) {
         try {
             root.execute(args);
         } catch (final Exception e) {
