@@ -18,7 +18,7 @@ public enum Format {
             case "png":
                 return PNG;
             default:
-                throw new IllegalArgumentException("invalid extension");
+                throw new InvalidFormatException(extension);
         }
     }
 
