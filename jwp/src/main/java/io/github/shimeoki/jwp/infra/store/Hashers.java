@@ -5,6 +5,7 @@ import java.util.HexFormat;
 
 import io.github.shimeoki.jwp.domain.values.Algorithm;
 import io.github.shimeoki.jwp.domain.values.Hash;
+import io.github.shimeoki.jwp.domain.values.InvalidAlgorithmException;
 
 public final class Hashers {
 
@@ -21,7 +22,7 @@ public final class Hashers {
             case MD5:
                 return MD5;
             default:
-                throw new IllegalArgumentException("unsupported algorithm");
+                throw new InvalidAlgorithmException(a.toString());
         }
     }
 
