@@ -17,7 +17,7 @@ public enum Type {
         } else if (os.contains("nux") || os.contains("nix")) {
             return UNIX;
         } else {
-            throw new IllegalStateException("unsupported os type");
+            throw new UnsupportedTypeException(os);
         }
     }
 
