@@ -38,22 +38,16 @@ public final class Hash implements Serializable, Comparable<Hash> {
     }
 
     private void validateSHA256() {
-        if (digest.length() != 64) {
-            throw new IllegalArgumentException("invalid sha256 digest");
-        }
-
-        if (!digest.matches("^[a-fA-F0-9]{64}$")) {
-            throw new IllegalArgumentException("invalid sha256 digest");
+        final var re = "^[a-fA-F0-9]{64}$";
+        if (!digest.matches(re)) {
+            throw new InvalidDigestException("sha256", digest, re);
         }
     }
 
     private void validateMD5() {
-        if (digest.length() != 32) {
-            throw new IllegalArgumentException("invalid md5 digest");
-        }
-
-        if (!digest.matches("^[a-fA-F0-9]{32}$")) {
-            throw new IllegalArgumentException("invalid md5 digest");
+        final var re = "^[a-fA-F0-9]{32}$";
+        if (!digest.matches(re)) {
+            throw new InvalidDigestException("md5", digest, re);
         }
     }
 
