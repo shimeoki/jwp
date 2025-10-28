@@ -10,6 +10,7 @@ import io.github.shimeoki.jwp.infra.db.inmemory.Database;
 import io.github.shimeoki.jwp.infra.store.Hasher;
 import io.github.shimeoki.jwp.infra.store.Hashers;
 import io.github.shimeoki.jwp.infra.store.LocalStore;
+import io.github.shimeoki.jwp.infra.store.StoreStateException;
 
 public final class App {
 
@@ -41,11 +42,11 @@ public final class App {
         try {
             store = new LocalStore(storeConfig.path(), hasher);
             if (store.count() > 0) {
-                throw new IllegalArgumentException(
-                        "store is not empty; not supported with inmemory db");
+                throw new StoreStateException(
+                        "the store should be empty with inmemory db");
             }
         } catch (final IOException e) {
-            throw new RuntimeException("failed to open store", e);
+            throw new StoreStateException("failed to open the store", e);
         }
 
         worker = new LocalInMemoryWorker(db, store);
@@ -68,7 +69,7 @@ public final class App {
         try {
             store.clear();
         } catch (final IOException e) {
-            throw new RuntimeException("failed to clear the store", e);
+            throw new StoreStateException("failed to clear the store", e);
         }
 
         db = null;
