@@ -56,9 +56,9 @@ public final class Database {
         return instance;
     }
 
-    protected void addTag(final Tag t) {
-        final var cloned = t.clone();
-        final var id = t.id();
+    protected void addTag(final Tag tag) {
+        final var cloned = tag.clone();
+        final var id = tag.id();
 
         final var stored = tagsByID.get(id);
         if (stored != null) {
@@ -66,7 +66,7 @@ public final class Database {
         }
 
         tagsByID.put(id, cloned);
-        tagsByName.put(t.name(), cloned);
+        tagsByName.put(tag.name(), cloned);
 
         var walls = tagWallpapers.get(id);
         if (walls == null) {
@@ -164,60 +164,61 @@ public final class Database {
         return sourcesByID.size();
     }
 
-    protected void addWallpaper(final Wallpaper w) {
+    protected void addWallpaper(final Wallpaper wall) {
         final var tags = new HashMap<ID, Tag>();
         final var sources = new HashMap<ID, Source>();
 
-        final var id = w.id();
-        final var hash = w.hash();
-        final var wallpaper = new Wallpaper(
+        final var id = wall.id();
+        final var hash = wall.hash();
+        final var cloned = new Wallpaper(
                 id,
-                w.format(),
+                wall.format(),
                 hash,
                 sources,
                 tags,
-                w.createdAt(),
-                w.updatedAt());
+                wall.createdAt(),
+                wall.updatedAt());
 
-        joinTags(w, tags);
-        joinSources(w, sources);
+        // fill the new "cloned" wallpaper
+        joinTags(wall, tags);
+        joinSources(wall, sources);
 
         final var stored = wallpapersByID.get(id);
         if (stored != null) {
             wallpapersByHash.remove(stored.hash());
         }
 
-        wallpapersByID.put(id, wallpaper);
-        wallpapersByHash.put(hash, wallpaper);
+        wallpapersByID.put(id, cloned);
+        wallpapersByHash.put(hash, cloned);
     }
 
     protected void removeWallpaper(final ID id) {
-        final var wallpaper = wallpapersByID.get(id);
+        final var wall = wallpapersByID.get(id);
 
-        removeTags(wallpaper);
-        removeSources(wallpaper);
+        removeTags(wall);
+        removeSources(wall);
         removeAliases(id);
 
         wallpapersByID.remove(id);
-        wallpapersByHash.remove(wallpaper.hash());
+        wallpapersByHash.remove(wall.hash());
     }
 
     protected Wallpaper getWallpaperByID(final ID id) {
-        final var wallpaper = wallpapersByID.get(id);
-        if (wallpaper == null) {
+        final var wall = wallpapersByID.get(id);
+        if (wall == null) {
             return null;
         }
 
-        return wallpaper.clone();
+        return wall.clone();
     }
 
     protected Wallpaper getWallpaperByHash(final Hash h) {
-        final var wallpaper = wallpapersByHash.get(h);
-        if (wallpaper == null) {
+        final var wall = wallpapersByHash.get(h);
+        if (wall == null) {
             return null;
         }
 
-        return wallpaper.clone();
+        return wall.clone();
     }
 
     protected List<Wallpaper> getWallpapersByTagID(final ID id) {
@@ -250,13 +251,13 @@ public final class Database {
     }
 
     protected void removeAlias(final ID id) {
-        final var a = aliasesByID.get(id);
-        if (a == null) {
+        final var alias = aliasesByID.get(id);
+        if (alias == null) {
             return;
         }
 
         aliasesByID.remove(id);
-        wallpaperAliases.get(a.wallpaperID()).remove(id);
+        wallpaperAliases.get(alias.wallpaperID()).remove(id);
     }
 
     protected Alias getAliasByID(final ID id) {
@@ -305,15 +306,15 @@ public final class Database {
         }
 
         // add new relations
-        for (final var tag : w.tags()) {
-            final var tid = tag.id();
+        for (final var clonedTag : w.tags()) {
+            final var tid = clonedTag.id();
 
-            final var t = tagsByID.get(tid);
-            if (t == null) {
+            final var storedTag = tagsByID.get(tid);
+            if (storedTag == null) {
                 throw new IllegalArgumentException("invalid tag relation");
             }
 
-            tags.put(tid, t);
+            tags.put(tid, storedTag);
             tagWallpapers.get(tid).add(id);
         }
     }
@@ -335,15 +336,15 @@ public final class Database {
         }
 
         // add new relations
-        for (final var source : w.sources()) {
-            final var sid = source.id();
+        for (final var clonedSource : w.sources()) {
+            final var sid = clonedSource.id();
 
-            final var s = sourcesByID.get(sid);
-            if (s == null) {
+            final var storedSource = sourcesByID.get(sid);
+            if (storedSource == null) {
                 throw new IllegalArgumentException("invalid source relation");
             }
 
-            sources.put(sid, s);
+            sources.put(sid, storedSource);
             sourceWallpapers.get(sid).add(id);
         }
     }
