@@ -5,24 +5,6 @@
     ];
 
     perSystem = {
-        treefmt = {
-            programs = {
-                # keep-sorted start block=yes newline_separated=yes
-                keep-sorted = {
-                    enable = true;
-                };
-
-                nixfmt = {
-                    enable = true;
-                    width = 80;
-                };
-                # keep-sorted end
-            };
-
-            settings.formatter = {
-                # TODO: use indent option after numtide/treefmt-nix#416
-                nixfmt.options = [ "--indent=4" ];
-            };
-        };
+        treefmt = import "${inputs.self}/treefmt.nix";
     };
 }

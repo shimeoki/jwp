@@ -20,5 +20,5 @@ java {
 }
 
 application {
-    mainClass = "" // TODO: main class
+    mainClass = "io.github.shimeoki.jwp.Main"
 }

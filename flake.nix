@@ -22,8 +22,10 @@
 
             imports = [
                 # keep-sorted start
+                ./flake/app.nix
                 ./flake/dev.nix
                 ./flake/fmt.nix
+                ./flake/pkg.nix
                 # keep-sorted end
             ];
         };

@@ -1,5 +1,6 @@
 # flake
 /.pre-commit-config.yaml
+/result
 
 # gradle
 .gradle
@@ -10,3 +11,7 @@ build
 .classpath
 .project
 *.class
+
+# editors
+/.idea
+/.vscode
