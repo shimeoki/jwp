@@ -11,8 +11,7 @@ public final class SessionCommand extends Command {
 
     private static final Runner check = Runners.exactArgs(0);
 
-    // TODO: static?
-    private boolean running = false;
+    private static boolean running = false;
 
     private final Command root;
 
@@ -27,7 +26,7 @@ public final class SessionCommand extends Command {
 
         if (running) {
             throw new IllegalStateException(
-                    "recursive sessions are not allowed");
+                    "multiple simultaneous sessions are not allowed");
         }
 
         running = true;
