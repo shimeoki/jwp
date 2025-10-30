@@ -3,7 +3,8 @@ package io.github.shimeoki.jwp.app;
 public class InvalidRelationException extends RuntimeException {
 
     public InvalidRelationException(
-            final String entity, final boolean attached) {
+            final String entity,
+            final boolean attached) {
 
         String state;
         if (attached) {
