@@ -27,9 +27,11 @@ public final class Hashers {
     }
 
     public static Hasher fromAlgorithm(final Algorithm a) {
+        final var algo = convert(a);
+
         return (img) -> {
             try {
-                final var md = MessageDigest.getInstance(convert(a));
+                final var md = MessageDigest.getInstance(algo);
                 final var buf = new byte[SIZE];
 
                 int read;
