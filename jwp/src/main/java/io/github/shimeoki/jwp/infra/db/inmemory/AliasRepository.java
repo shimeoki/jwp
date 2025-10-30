@@ -1,8 +1,8 @@
 package io.github.shimeoki.jwp.infra.db.inmemory;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import io.github.shimeoki.jwp.domain.entities.Alias;
 import io.github.shimeoki.jwp.domain.values.ID;
@@ -33,8 +33,8 @@ public final class AliasRepository
     }
 
     @Override
-    public Stream<Alias> findAll() {
-        return db.getAllAliases().stream();
+    public List<Alias> findAll() {
+        return db.getAllAliases();
     }
 
     @Override
@@ -43,7 +43,7 @@ public final class AliasRepository
     }
 
     @Override
-    public Stream<Alias> findByWallpaperID(final ID id) {
-        return db.getAliasesByWallpaperID(Objects.requireNonNull(id)).stream();
+    public List<Alias> findByWallpaperID(final ID id) {
+        return db.getAliasesByWallpaperID(Objects.requireNonNull(id));
     }
 }

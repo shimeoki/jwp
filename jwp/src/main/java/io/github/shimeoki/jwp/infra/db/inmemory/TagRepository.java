@@ -1,8 +1,8 @@
 package io.github.shimeoki.jwp.infra.db.inmemory;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import io.github.shimeoki.jwp.domain.entities.Tag;
 import io.github.shimeoki.jwp.domain.values.ID;
@@ -33,8 +33,8 @@ public final class TagRepository
     }
 
     @Override
-    public Stream<Tag> findAll() {
-        return db.getAllTags().stream();
+    public List<Tag> findAll() {
+        return db.getAllTags();
     }
 
     @Override

@@ -18,7 +18,7 @@ public final class ListSourcesHandler
     public ListSourcesResult handle(final ListSourcesQuery qry) {
         try (final var p = worker.work()) {
             return new ListSourcesResult(p.sourceRepository().findAll()
-                    .map((s) -> new ListSourcesResult.Source(
+                    .stream().map((s) -> new ListSourcesResult.Source(
                             s.id().toString(),
                             s.name().toString(),
                             s.link()))

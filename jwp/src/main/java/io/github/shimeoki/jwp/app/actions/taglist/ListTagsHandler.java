@@ -21,7 +21,7 @@ public final class ListTagsHandler
         try (final var p = worker.work()) {
             final var tags = p.tagRepository();
 
-            final var names = tags.findAll()
+            final var names = tags.findAll().stream()
                     .map(Tag::name)
                     .map(Name::toString)
                     .toArray(String[]::new);

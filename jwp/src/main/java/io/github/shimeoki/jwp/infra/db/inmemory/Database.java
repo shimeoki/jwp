@@ -1,8 +1,8 @@
 package io.github.shimeoki.jwp.infra.db.inmemory;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -109,7 +109,7 @@ public final class Database {
         return tag.clone();
     }
 
-    protected Collection<Tag> getAllTags() {
+    protected List<Tag> getAllTags() {
         return tagsByID.values().stream()
                 .map(Tag::clone).toList();
     }
@@ -155,7 +155,7 @@ public final class Database {
         return source.clone();
     }
 
-    protected Collection<Source> getAllSources() {
+    protected List<Source> getAllSources() {
         return sourcesByID.values().stream()
                 .map(Source::clone).toList();
     }
@@ -220,12 +220,12 @@ public final class Database {
         return wallpaper.clone();
     }
 
-    protected Collection<Wallpaper> getWallpapersByTagID(final ID id) {
+    protected List<Wallpaper> getWallpapersByTagID(final ID id) {
         return tagWallpapers.get(id).stream()
                 .map((wid) -> wallpapersByID.get(wid).clone()).toList();
     }
 
-    protected Collection<Wallpaper> getAllWallpapers() {
+    protected List<Wallpaper> getAllWallpapers() {
         return wallpapersByID.values().stream()
                 .map(Wallpaper::clone).toList();
     }
@@ -268,12 +268,12 @@ public final class Database {
         return alias.clone();
     }
 
-    protected Collection<Alias> getAliasesByWallpaperID(final ID id) {
+    protected List<Alias> getAliasesByWallpaperID(final ID id) {
         return wallpaperAliases.get(id).stream()
                 .map((aid) -> aliasesByID.get(aid).clone()).toList();
     }
 
-    protected Collection<Alias> getAllAliases() {
+    protected List<Alias> getAllAliases() {
         return aliasesByID.values().stream()
                 .map(Alias::clone).toList();
     }

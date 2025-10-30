@@ -1,8 +1,8 @@
 package io.github.shimeoki.jwp.infra.db.inmemory;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import io.github.shimeoki.jwp.domain.entities.Wallpaper;
 import io.github.shimeoki.jwp.domain.values.Hash;
@@ -34,8 +34,8 @@ public final class WallpaperRepository
     }
 
     @Override
-    public Stream<Wallpaper> findAll() {
-        return db.getAllWallpapers().stream();
+    public List<Wallpaper> findAll() {
+        return db.getAllWallpapers();
     }
 
     @Override
@@ -50,7 +50,7 @@ public final class WallpaperRepository
     }
 
     @Override
-    public Stream<Wallpaper> findByTagID(final ID id) {
-        return db.getWallpapersByTagID(id).stream();
+    public List<Wallpaper> findByTagID(final ID id) {
+        return db.getWallpapersByTagID(id);
     }
 }

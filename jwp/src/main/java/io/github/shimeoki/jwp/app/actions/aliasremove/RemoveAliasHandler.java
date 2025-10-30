@@ -32,7 +32,7 @@ public final class RemoveAliasHandler
             final var n = new Name(cmd.aliasName());
 
             final var aliases = p.aliasRepository()
-                    .findByWallpaperID(w.id()).toList();
+                    .findByWallpaperID(w.id());
 
             for (final var a : aliases) {
                 if (a.name().equals(n)) {

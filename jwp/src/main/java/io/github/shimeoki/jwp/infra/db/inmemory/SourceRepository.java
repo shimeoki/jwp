@@ -1,8 +1,8 @@
 package io.github.shimeoki.jwp.infra.db.inmemory;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import io.github.shimeoki.jwp.domain.entities.Source;
 import io.github.shimeoki.jwp.domain.values.ID;
@@ -32,8 +32,8 @@ public final class SourceRepository
     }
 
     @Override
-    public Stream<Source> findAll() {
-        return db.getAllSources().stream();
+    public List<Source> findAll() {
+        return db.getAllSources();
     }
 
     @Override

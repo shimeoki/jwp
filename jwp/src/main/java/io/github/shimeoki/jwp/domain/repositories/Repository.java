@@ -1,7 +1,7 @@
 package io.github.shimeoki.jwp.domain.repositories;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import io.github.shimeoki.jwp.domain.values.ID;
 
@@ -13,7 +13,7 @@ public interface Repository<E> {
 
     Optional<E> findByID(ID id);
 
-    Stream<E> findAll();
+    List<E> findAll();
 
     long count();
 }

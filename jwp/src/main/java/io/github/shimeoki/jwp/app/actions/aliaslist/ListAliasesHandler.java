@@ -20,7 +20,7 @@ public final class ListAliasesHandler
         try (final var p = worker.work()) {
             final var aliases = p.aliasRepository().findAll();
 
-            final var lines = aliases.map((a) -> {
+            final var lines = aliases.stream().map((a) -> {
                 final var wid = a.wallpaperID();
 
                 final var w = p.wallpaperRepository().findByID(wid).orElseThrow(
